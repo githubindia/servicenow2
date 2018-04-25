@@ -35,7 +35,7 @@ router.route('/postback')
 router.route('/close')
 
   .get(function(req, res){
-    res.sendFile('../closeWindow.html')
+    res.sendFile('/../closeWindow.html')
   })
 
 
