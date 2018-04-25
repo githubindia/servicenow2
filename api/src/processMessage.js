@@ -61,4 +61,3 @@ module.exports = (event) => {
     apiaiSession.on('error', error => console.log(error));
     apiaiSession.end();
 };
-EAAc6hI7VvPwBAMZCh6VJ7ZAsEfXE5sk62YhBoMUinTYArAY7qscG8hgZBJ2xsH1a9BnXXu4BXBWyjZANCaoapGRV0qQCLTZABi8ZArlg4YZAdoFw8MlhdhpNcrUCHE2ZCSbjRCcpFrczW54PAwO1VIjr30wvU4P7rlYdN8RI9tBSoQZDZD
