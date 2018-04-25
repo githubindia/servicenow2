@@ -48,7 +48,8 @@ module.exports = (event) => {
                                 "type":"web_url",
                                 "url":"https://servicenow2.herokuapp.com/webhook/close",
                                 "title":"Login",
-                                "webview_height_ratio":"tall"
+                                "webview_height_ratio":"tall",
+                                messenger_extensions:true
                             }
                         ]
                     }

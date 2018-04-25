@@ -14,26 +14,14 @@
         js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'Messenger'));
-    window.extAsyncInit = () => {
-        // TODO: How to parse env file from here?
-        MessengerExtensions.getSupportedFeatures(function success(result) {
-            let features = result.supported_features;
-            if (features.includes("context")) {
-                MessengerExtensions.getContext('EAAc6hI7VvPwBAHboQmC66s33wksVxCsAjOZAr5scCnsEFc0P2IrFrOvEO9jip3rjoZBo0PDzTckZAWVPwOZC9POI8GldBEALmpP6q8NTeU4ZA0XIp7ZB96gj0rqcSfYR3HQ6Ue3oTmBUNA6Q6lhELpNmtZAj3ttn23lIXh16kTeqQZDZD',
-                    function success(thread_context) {
-                        // success
-                        document.getElementById("psid").value = thread_context.psid;
-                    },
-                    function error(err) {
-                        // error
-                        console.log(err);
-                    }
-                );
-            }
-        }, function error(err) {
-            // error retrieving supported features
-            console.log(err);
-        });
+    window.extAsyncInit = function () {
+  // the Messenger Extensions JS SDK is done loading
+   MessengerExtensions.getUserID(function success(uids) {
+    var psid = uids.psid;//This is your page scoped sender_id
+    alert(psid);
+}, function error(err) {
+    alert("Messenger Extension Error: " + err);
+});
         // document.getElementById('submitButton').addEventListener('click', () => {
         //     MessengerExtensions.requestCloseBrowser(function success() {
         //         console.log("Webview closing");
