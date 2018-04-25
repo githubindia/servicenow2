@@ -34,15 +34,16 @@
             // error retrieving supported features
             console.log(err);
         });
-        document.getElementById('submitButton').addEventListener('click', () => {
-            MessengerExtensions.requestCloseBrowser(function success() {
-                console.log("Webview closing");
-            }, function error(err) {
-                console.log(err);
-            });
-        });
+        // document.getElementById('submitButton').addEventListener('click', () => {
+        //     MessengerExtensions.requestCloseBrowser(function success() {
+        //         console.log("Webview closing");
+        //     }, function error(err) {
+        //         console.log(err);
+        //     });
+        // });
     };
 </script>
+<!--<form action="/webhook/postback" method="get">1-->
 <form action="/webhook/postback" method="get">
     <input type="hidden" name="psid" id="psid">
     <!--<iframe src="https://servicenowbot.herokuapp.com/auth/provider"></iframe>-->
