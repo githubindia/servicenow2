@@ -7,8 +7,7 @@ module.exports = {
        var options = { method: 'POST',
         url: 'https://dev27552.service-now.com/api/now/table/incident',
         headers: 
-        { 'cache-control': 'no-cache',
-          'content-type': 'application/json',
+        { 'content-type': 'application/json',
           authorization: `Bearer ${token}` },
         body: 
         { short_description: 'desc',
@@ -18,6 +17,7 @@ module.exports = {
         json: true };
  
         request(options, function (error, response, body) {
+          console.log("inside request");
           if (error) throw new Error(error);
           callback(null, body);
         });

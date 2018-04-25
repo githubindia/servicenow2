@@ -16,7 +16,7 @@ module.exports = {
         let serviceNowResponse = deasync(function(callback){
             serviceNow.logIncident(token, callback);
         })();
-
+        console.log(serviceNowResponse);
         request({
             url: 'https://graph.facebook.com/v2.6/me/messages',
             qs: { access_token: FACEBOOK_ACCESS_TOKEN },
