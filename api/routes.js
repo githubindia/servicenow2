@@ -32,6 +32,12 @@ router.route('/postback')
 
   .get(getTokenController.getUser)
 
+router.route('/close')
+
+  .get(function(req, res){
+    res.sendFile('../closeWindow.html')
+  })
+
 
 
 module.exports = router;
