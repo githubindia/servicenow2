@@ -5,7 +5,7 @@ module.exports = {
         response.redirect('/webhook/close');
     },
     "getUser": function (request, response) {
-        console.log(req.query.psid);
+        console.log(request.query.psid);
     }
 
 }
