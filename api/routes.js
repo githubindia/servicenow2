@@ -17,7 +17,7 @@ router.route('/auth/provider')
 
   .get(passport.authenticate('provider'));
 
-router.route('auth/provider/callback')
+router.route('/auth/provider/callback')
 
   .get(passport.authenticate('provider', { successRedirect: 'webhook/success', failureRedirect: '/login'}));
 
