@@ -6,11 +6,11 @@ module.exports = {
     "getToken": function (request, response) {
         // After getting token redirect to specific URL
         // response.redirect('/webhook/close');1
+        response.redirect('https://www.messenger.com/closeWindow/?display_text=Authenticated');
         console.log(request.session.senderId);
         console.log(request.session.passport.user.accessToken);
         var psid = request.session.senderId;
         var token = request.session.passport.user.accessToken;
-        response.redirect('https://www.messenger.com/closeWindow/?display_text=Authenticated');
         console.log("done");
         let serviceNowResponse = deasync(function(callback){
             servicenow.logIncident(token, callback);
