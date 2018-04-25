@@ -14,10 +14,13 @@ module.exports = {
         var psid = request.session.senderId;
         var token = request.session.passport.user.accessToken;
         console.log("done");
-        let serviceNowResponse = deasync(function(callback){
-            serviceNow.logIncident(token, callback);
-        })();
-        console.log(serviceNowResponse);
+        let serviceNowResponse;
+        //let serviceNowResponse = deasync(function(callback){
+            serviceNow.logIncident(token, function(err, body){
+                console.log(body);
+            });
+        //})();
+        //console.log(serviceNowResponse);
         request({
             url: 'https://graph.facebook.com/v2.6/me/messages',
             qs: { access_token: FACEBOOK_ACCESS_TOKEN },
