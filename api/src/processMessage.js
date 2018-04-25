@@ -16,6 +16,7 @@ const sendTextMessage = (senderId, text) => {
 };
 
 module.exports = (event) => {
+    console.log('------------------Inside processMessage-------------------');
     const senderId = event.sender.id;
     const message = event.message.text;
 
