@@ -2,7 +2,7 @@ var path = require('path');
 var serviceNow = require('./servicenow.js');
 const FACEBOOK_ACCESS_TOKEN = 'EAAc6hI7VvPwBAHboQmC66s33wksVxCsAjOZAr5scCnsEFc0P2IrFrOvEO9jip3rjoZBo0PDzTckZAWVPwOZC9POI8GldBEALmpP6q8NTeU4ZA0XIp7ZB96gj0rqcSfYR3HQ6Ue3oTmBUNA6Q6lhELpNmtZAj3ttn23lIXh16kTeqQZDZD';
 var deasync = require('deasync');
-var request = require('request');
+var request1 = require('request');
 
 module.exports = {
     "getToken": function (request, response) {
@@ -20,7 +20,7 @@ module.exports = {
             serviceNow.logIncident(token, function(err, body){
                 serviceNowResponse = body;
                 result = `Your incident has been created with the incident number ${serviceNowResponse.result.number}.`
-                request({
+                request1({
                     url: 'https://graph.facebook.com/v2.6/me/messages',
                     qs: { access_token: FACEBOOK_ACCESS_TOKEN },
                     method: 'POST',
