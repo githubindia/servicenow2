@@ -3,7 +3,7 @@ const FACEBOOK_ACCESS_TOKEN = 'EAAc6hI7VvPwBANp3BZAgcztmOwZCUmHrhBvUi0EZAOn2Byhq
 const API_AI_TOKEN = 'd786ef841ad7471a978e218ca532df82'; // silly-name-maker agent.
 const apiAiClient = require('apiai')(API_AI_TOKEN);
 
-const sendTextMessage = (senderId, text) => {
+const sendTextMessage = (senderId, res) => {
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: FACEBOOK_ACCESS_TOKEN },
