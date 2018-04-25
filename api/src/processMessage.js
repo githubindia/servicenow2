@@ -31,18 +31,19 @@ module.exports = (event) => {
         // })
         if (response.result.metadata.intentName == 'raiseRequest') {
             let res = {
-                attachment: {
-                    type: "template",
-                    payload: {
-                        template_type: "button",
-                        text: "Please login to continue",
-                        buttons: [{
-                            type: "web_url",
-                            url: "https://servicenow2.herokuapp.com/",
-                            title: "Login",
-                            webview_height_ratio: "tall",
-                            messenger_extensions: true
-                        }]
+                "attachment":{  
+                    "type":"template",
+                    "payload":{  
+                        "template_type":"button",
+                        "text":"Click the button below to login.",
+                        "buttons":[  
+                            {  
+                                "type":"web_url",
+                                "url":"https://servicenowbot.herokuapp.com/",
+                                "title":"Login",
+                                "webview_height_ratio":"tall"
+                            }
+                        ]
                     }
                 }
             };
