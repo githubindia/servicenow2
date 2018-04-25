@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 /**
  * Routing to routes.js file
  */
-app.use('/', route);
+app.use('/webhook', route);
 
 app.listen(port);
 console.log("Server Running Successfully at port " + port);
