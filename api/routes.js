@@ -17,7 +17,10 @@ router.route('/')
 
 router.route('/auth/provider')
 
-  .get(passport.authenticate('provider'));
+  .get(function (req, res, next) {
+    req.session.senderId = req.query.psid;
+    next();
+  }, passport.authenticate('provider'));
 
 router.route('/auth/provider/callback')
 

@@ -8,7 +8,8 @@ module.exports = {
     },
     "getUser": function (request, response) {
         console.log(request.query.psid);
-        response.redirect('/webhook/auth/provider');
+        var psid = request.query.psid;
+        response.redirect('/webhook/auth/provider?psid'= psid);
         // response.redirect('https://www.messenger.com/closeWindow/?display_text=Authenticated');
     }
 
