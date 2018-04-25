@@ -10,7 +10,7 @@ const sendTextMessage = (senderId, res) => {
         method: 'POST',
         json: {
             recipient: { id: senderId },
-            message: { "text":"hello" },
+            message: res
         }
     }, (err, res, body) => {
         if (!err) {
