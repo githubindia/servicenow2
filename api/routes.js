@@ -3,6 +3,7 @@ var app = express();
 var router = express.Router();
 var passport = require('passport');
 var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
+var path = require('path');
 
 const verificationController = require('./src/verification');
 const messageWebhookController = require('./src/messageWebhook');
@@ -35,7 +36,7 @@ router.route('/postback')
 router.route('/close')
 
   .get(function(req, res){
-    res.sendFile('/../closeWindow.html')
+    res.sendFil(path.resolve(__dirname + '/../closeWindow.html'))
   })
 
 
