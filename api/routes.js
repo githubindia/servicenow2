@@ -6,6 +6,7 @@ var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 
 const verificationController = require('./src/verification');
 const messageWebhookController = require('./src/messageWebhook');
+const getTokenController = require('./src/getToken')
 
 router.route('/')
 
@@ -25,9 +26,11 @@ app.use(router);
 
 router.route('/success')
 
-  .get(function(req, res) {
-    res.send('done');
-  })
+  .get(getTokenController.getToken);
+
+router.route('/postback')
+
+  .get(getTokenController.getUser)
 
 
 
