@@ -7,6 +7,7 @@ module.exports = {
         console.log(request.session.senderId);
         console.log(request.session.passport.user.accessToken);
         response.redirect('https://www.messenger.com/closeWindow/?display_text=Authenticated');
+        console.log("done");
     },
     "getUser": function (request, response) {
         console.log(request.query.psid);
