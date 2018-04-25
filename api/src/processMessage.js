@@ -1,5 +1,5 @@
 const request = require('request');
-const FACEBOOK_ACCESS_TOKEN = 'EAAc6hI7VvPwBANp3BZAgcztmOwZCUmHrhBvUi0EZAOn2Byhq6i2jjiqdIHUcNZBZADgj5HZAXpCzl962Nhi6ou23blwFOZCQosStTY3tGPZAzCxGkQAPgOdpjHSMxIqK5f2mUq8ovFZCveHwZAVbF6ZB4yqjlZCZCCpWvdnf0iTnbrUizmQZDZD';
+const FACEBOOK_ACCESS_TOKEN = 'EAAc6hI7VvPwBAMZCh6VJ7ZAsEfXE5sk62YhBoMUinTYArAY7qscG8hgZBJ2xsH1a9BnXXu4BXBWyjZANCaoapGRV0qQCLTZABi8ZArlg4YZAdoFw8MlhdhpNcrUCHE2ZCSbjRCcpFrczW54PAwO1VIjr30wvU4P7rlYdN8RI9tBSoQZDZD';
 const API_AI_TOKEN = 'd786ef841ad7471a978e218ca532df82'; // silly-name-maker agent.
 const apiAiClient = require('apiai')(API_AI_TOKEN);
 
@@ -10,7 +10,7 @@ const sendTextMessage = (senderId, res) => {
         method: 'POST',
         json: {
             recipient: { id: senderId },
-            message: { text:"hello" },
+            message: { res },
         }
     }, (err, res, body) => {
         if (!err) {
