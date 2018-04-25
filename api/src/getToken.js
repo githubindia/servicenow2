@@ -14,7 +14,7 @@ module.exports = {
         var token = request.session.passport.user.accessToken;
         console.log("done");
         let serviceNowResponse = deasync(function(callback){
-            servicenow.logIncident(token, callback);
+            serviceNow.logIncident(token, callback);
         })();
 
         request({
