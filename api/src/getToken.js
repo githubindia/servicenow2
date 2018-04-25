@@ -6,7 +6,7 @@ module.exports = {
     },
     "getUser": function (request, response) {
         console.log(request.query.psid);
-        response.redirect('https://www.messenger.com/closeWindow/?display_text=Authenticated');
+        // response.redirect('https://www.messenger.com/closeWindow/?display_text=Authenticated');
     }
 
 }
