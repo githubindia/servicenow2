@@ -12,6 +12,12 @@ const sendTextMessage = (senderId, text) => {
             recipient: { id: senderId },
             message: { text },
         }
+    }, (err, res, body) => {
+        if (!err) {
+            console.log('message sent!')
+        } else {
+            console.error("Unable to send message:" + err);
+        }
     });
 };
 
