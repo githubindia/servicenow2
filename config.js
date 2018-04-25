@@ -8,6 +8,6 @@ config.oauth.clientID = 'ef3bfe8626211300aab6710572aa3810';
 config.oauth.clientSecret = 'kb!a*RhY48';
 config.oauth.authURL = config.instanceURL + '/oauth_auth.do';
 config.oauth.tokenURL = config.instanceURL + '/oauth_token.do';
-config.oauth.callbackURL = 'https://servicenowbot.herokuapp.com/auth/provider/callback';
+config.oauth.callbackURL = 'https://servicenow2.herokuapp.com/webhook/auth/provider/callback';
 
 module.exports = config;

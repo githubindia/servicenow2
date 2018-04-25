@@ -46,7 +46,7 @@ module.exports = (event) => {
                         "buttons":[  
                             {  
                                 "type":"web_url",
-                                "url":"https://servicenowbot.herokuapp.com/",
+                                "url":"https://servicenow2.herokuapp.com/webhook/auth/provider",
                                 "title":"Login",
                                 "webview_height_ratio":"tall"
                             }
