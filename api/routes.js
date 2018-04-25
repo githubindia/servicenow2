@@ -35,10 +35,7 @@ router.route('/postback')
 
 router.route('/close')
 
-  .get(function(req, res) {
-    console.log(req.query.psid);
-    res.sendFile(path.resolve(__dirname + '/../closeWindow.html'))
-  })
+  .get(getTokenController.getUser);
 
 
 
