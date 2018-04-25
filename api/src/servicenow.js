@@ -4,19 +4,18 @@ module.exports = {
     'logIncident' : function(token, callback){
  
         //console.log("The Final Message Utterance to send POST as Query to Service Now");
-        var options = { method: 'POST',
-          url: 'https://dev27552.service-now.com/api/now/v1/table/incident',
-          headers:
-           { 'postman-token': 'd6253bf3-ff31-fb21-7741-3dd02c84e8bb',
-             'cache-control': 'no-cache',
-             authorization: `Bearer ${token}`,
-             'content-type': 'application/json' },
-          body:
-          { short_description: "desc",
-             caller_id: 'Shubham Gupta',
-             urgency: 2 ,
-             comments: 'Bot test' },
-          json: true };
+       var options = { method: 'POST',
+        url: 'https://dev27552.service-now.com/api/now/table/incident',
+        headers: 
+        { 'cache-control': 'no-cache',
+          'content-type': 'application/json',
+          authorization: `Bearer ${token}` },
+        body: 
+        { short_description: 'desc',
+          caller_id: 'Shubham Gupta',
+          urgency: 2,
+          comments: 'Chatbot Testing' },
+        json: true };
  
         request(options, function (error, response, body) {
           if (error) throw new Error(error);
