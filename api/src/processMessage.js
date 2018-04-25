@@ -30,6 +30,7 @@ module.exports = (event) => {
         //     arr.push()
         // })
         if (response.result.metadata.intentName == 'raiseRequest') {
+            console.log('-------------inside if---------------');
             let res = {
                 "attachment":{  
                     "type":"template",
