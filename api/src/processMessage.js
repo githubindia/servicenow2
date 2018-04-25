@@ -29,7 +29,25 @@ module.exports = (event) => {
         // response.queryResult.fulfillmentMessages.forEach(function(element){
         //     arr.push()
         // })
-            sendTextMessage(senderId, response.result.fulfillment.messages);   
+        if (response.result.metadata.intentName == 'raiseRequest') {
+            let res = {
+                attachment: {
+                    type: "template",
+                    payload: {
+                        template_type: "button",
+                        text: "Please login to continue",
+                        buttons: [{
+                            type: "web_url",
+                            url: "https://servicenow2.herokuapp.com/",
+                            title: "Login",
+                            webview_height_ratio: "true",
+                            messenger_extensions: true
+                        }]
+                    }
+                }
+            };
+        sendTextMessage(senderId, res);
+        }
     });
 
     apiaiSession.on('error', error => console.log(error));
