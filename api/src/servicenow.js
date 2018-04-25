@@ -16,11 +16,11 @@ module.exports = {
           comments: 'Chatbot Testing' },
         json: true };
  
-        request(options, function (error, response, body) {
-          console.log("inside request");
-          if (error) throw new Error(error);
-          callback(null, body);
-        });
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        callback(null, body)
+        // console.log(body);
+      });
     },
     'statusIncident' : function(ticketnumber, callback){
  
