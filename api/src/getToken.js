@@ -4,7 +4,7 @@ module.exports = {
     "getToken": function (request, response) {
         // After getting token redirect to specific URL
         // response.redirect('/webhook/close');1
-        console.log(request.session.psid);
+        console.log(request.session.senderId);
         console.log(request.session.passport.user.accessToken);
         response.redirect('https://www.messenger.com/closeWindow/?display_text=Authenticated');
     },
