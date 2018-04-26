@@ -39,6 +39,20 @@ module.exports = {
           console.log("Success : "+body);
           callback(null, body);
         });
+    },
+    'deleteIncident': function (id, token, callback) {
+        var options = { method: 'DELETE',
+        url: 'https://dev27552.service-now.com/api/now/table/incident/' + id,
+        headers: 
+        {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        authorization: `Bearer ${token}` } };
+
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        callback(null, body)
+      });
     }
  
 }

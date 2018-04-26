@@ -15,12 +15,38 @@ module.exports = {
         console.log(request.session.passport.user.accessToken);
         var psid = request.session.senderId;
         var token = request.session.passport.user.accessToken;
-        console.log("done");
+        //console.log("done");
         let serviceNowResponse;
+        var userName;
         //let serviceNowResponse = deasync(function(callback){
-            serviceNow.logIncident(token, function(err, body){
+            // serviceNow.logIncident(token, function(err, body){
+            //     serviceNowResponse = body;
+            //     result = `Your incident has been created with the incident number ${serviceNowResponse.result.number}.`
+            //     request1({
+            //         url: 'https://graph.facebook.com/v2.6/me/messages',
+            //         qs: { access_token: FACEBOOK_ACCESS_TOKEN },
+            //         method: 'POST',
+            //         json: {
+            //             recipient: { id: psid },
+            //             message: {"text": result}
+            //         }
+            //     }, (err, res, body) => {
+            //         if (!err) {
+            //             console.log('message sent!')
+            //         } else {
+            //             console.error("Unable to send message:" + err);
+            //         }
+            //     });
+            // });
+        //})();
+        //console.log(serviceNowResponse);
+        serviceNow.logIncident(token, function(err, body){
                 serviceNowResponse = body;
-                result = `Your incident has been created with the incident number ${serviceNowResponse.result.number}.`
+                userName = serviceNowResponse.result.sys_updated_by;
+                serviceNow.deleteIncident(serviceNowResponse.result.sys_id, token, function(err, body){
+                    console.log(body);
+                });
+                result = `Hello! ${userName}. Please enter the description to create a request.`
                 request1({
                     url: 'https://graph.facebook.com/v2.6/me/messages',
                     qs: { access_token: FACEBOOK_ACCESS_TOKEN },
@@ -37,8 +63,8 @@ module.exports = {
                     }
                 });
             });
-        //})();
-        //console.log(serviceNowResponse);
+
+
 
     },
     // Method to set senderId to passportJS session.
