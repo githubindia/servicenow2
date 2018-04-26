@@ -1,4 +1,5 @@
 const processMessage = require('./processMessage');
+const processPaylaod = require('./processPayload');
 var db = require('../db/mysql.js');
 
 module.exports = (req, res) => {
@@ -10,6 +11,8 @@ module.exports = (req, res) => {
                 if (event.message && event.message.text) {
                     //db.insertRecord(event, function(res){})
                     processMessage(event);
+                } else if (event.postback && event.postback.payload) {
+                    processPayload(event);
                 }
             });
         });
