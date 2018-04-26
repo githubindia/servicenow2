@@ -15,6 +15,7 @@ router.route('/')
 
   .post(messageWebhookController);
 
+// 2nd route
 router.route('/auth/provider')
 
   .get(function (req, res, next) {
@@ -22,12 +23,14 @@ router.route('/auth/provider')
     next();
   }, passport.authenticate('provider'));
 
+// 3rd route managed by passportJS
 router.route('/auth/provider/callback')
 
   .get(passport.authenticate('provider', { successRedirect: '/webhook/success', failureRedirect: '/login'}));
 
 app.use(router);
 
+// 4th route redirect URL
 router.route('/success')
 
   .get(getTokenController.getToken);
@@ -36,6 +39,7 @@ router.route('/postback')
 
   .get(getTokenController.getUser)
 
+// 1st route
 router.route('/close')
 
   .get(getTokenController.getUser);

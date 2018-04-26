@@ -5,6 +5,7 @@ var deasync = require('deasync');
 var request1 = require('request');
 
 module.exports = {
+    // After getting token this method called.
     "getToken": function (request, response) {
         // After getting token redirect to specific URL
         // response.redirect('/webhook/close');1
@@ -40,6 +41,7 @@ module.exports = {
         //console.log(serviceNowResponse);
 
     },
+    // Method to set senderId to passportJS session.
     "getUser": function (request, response) {
         console.log(request.query.psid);
         var psid = request.query.psid;
