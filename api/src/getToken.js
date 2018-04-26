@@ -15,8 +15,8 @@ module.exports = {
         console.log(request.session.passport.user.accessToken);
         var psid = request.session.senderId;
         var token = request.session.passport.user.accessToken;
-        this.storeToken.psid = psid;
-        this.storeToken.token = token;
+        global.session.storeToken.psid = psid;
+        global.session.storeToken.token = token;
         //console.log("done");
         let serviceNowResponse;
         var userName;
@@ -76,10 +76,6 @@ module.exports = {
         var psid = request.query.psid;
         response.redirect("/webhook/auth/provider?psid=" + psid);
         // response.redirect('https://www.messenger.com/closeWindow/?display_text=Authenticated');
-    },
-    storeToken : {
-        psid:'',
-        token:''
     }
 
 }
