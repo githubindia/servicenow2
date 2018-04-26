@@ -1,7 +1,7 @@
 var request = require("request");
  
 module.exports = {
-    'logIncident' : function(token, callback){
+    'logIncident' : function(token, desc, callback){
  
         //console.log("The Final Message Utterance to send POST as Query to Service Now");
        var options = { method: 'POST',
@@ -10,7 +10,7 @@ module.exports = {
         { 'content-type': 'application/json',
           authorization: `Bearer ${token}` },
         body: 
-        { short_description: 'desc',
+        { short_description: desc,
           caller_id: 'Shubham Gupta',
           urgency: 2,
           comments: 'Chatbot Testing' },

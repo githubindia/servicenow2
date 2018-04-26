@@ -1,6 +1,9 @@
+var getToken = require('./getToken');
+var serviceNow = require('./servicenow');
 module.exports = {
     "makeResponse": function(senderId, request, callback) {
         if (request.result.metadata.intentName == 'Default Welcome Intent') {
+
             var response;
             request.result.fulfillment.messages.forEach(function(element){
                 if (element.type == 4){
@@ -37,6 +40,13 @@ module.exports = {
                 }
             };
             callback(null, res);
+        } else if (request.result.metadata.intentName == 'incident_description') {
+            var desc = request.result.parameters.any;
+            var token = getToken.storeToken.token;
+            serviceNow.logIncident(token, desc, function(err, body) {
+                var result = `Your incident has been created with the incident number ${serviceNowResponse.result.number}.`
+            })
+            callback(null, result);
         }
     }
 }

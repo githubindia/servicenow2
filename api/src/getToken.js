@@ -15,6 +15,8 @@ module.exports = {
         console.log(request.session.passport.user.accessToken);
         var psid = request.session.senderId;
         var token = request.session.passport.user.accessToken;
+        this.storeToken.psid = psid;
+        this.storeToken.token = token;
         //console.log("done");
         let serviceNowResponse;
         var userName;
@@ -40,7 +42,8 @@ module.exports = {
             // });
         //})();
         //console.log(serviceNowResponse);
-        serviceNow.logIncident(token, function(err, body){
+        var desc = "Some description";
+        serviceNow.logIncident(token, desc, function(err, body) {
                 serviceNowResponse = body;
                 userName = serviceNowResponse.result.sys_updated_by;
                 serviceNow.deleteIncident(serviceNowResponse.result.sys_id, token, function(err, body){
@@ -73,6 +76,8 @@ module.exports = {
         var psid = request.query.psid;
         response.redirect("/webhook/auth/provider?psid=" + psid);
         // response.redirect('https://www.messenger.com/closeWindow/?display_text=Authenticated');
+    },
+    storeToken : {
     }
 
 }
