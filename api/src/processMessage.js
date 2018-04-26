@@ -2,6 +2,7 @@ const request = require('request');
 const FACEBOOK_ACCESS_TOKEN = 'EAAc6hI7VvPwBAHboQmC66s33wksVxCsAjOZAr5scCnsEFc0P2IrFrOvEO9jip3rjoZBo0PDzTckZAWVPwOZC9POI8GldBEALmpP6q8NTeU4ZA0XIp7ZB96gj0rqcSfYR3HQ6Ue3oTmBUNA6Q6lhELpNmtZAj3ttn23lIXh16kTeqQZDZD';
 const API_AI_TOKEN = 'd786ef841ad7471a978e218ca532df82'; // silly-name-maker agent.
 const apiAiClient = require('apiai')(API_AI_TOKEN);
+const getResponse = require('./getResponse');
 
 const sendTextMessage = (senderId, res) => {
     request({
@@ -36,27 +37,30 @@ module.exports = (event) => {
         // response.queryResult.fulfillmentMessages.forEach(function(element){
         //     arr.push()
         // })
-        if (response.result.metadata.intentName == 'raiseRequest') {
-            console.log('-------------inside if---------------');
-            let res = {
-                "attachment":{  
-                    "type":"template",
-                    "payload":{  
-                        "template_type":"button",
-                        "text":"Click the button below to login.",
-                        "buttons":[  
-                            {  
-                                "type":"web_url",
-                                "url":"https://servicenow2.herokuapp.com/webhook/close?psid=" + senderId,
-                                "title":"Login",
-                                "webview_height_ratio":"tall"
-                            }
-                        ]
-                    }
-                }
-            };
-        sendTextMessage(senderId, res);
-        }
+        getResponse.makeResponse(response, function(err, res){
+            sendTextMessage(senderId, res);
+        })
+        // if (response.result.metadata.intentName == 'raiseRequest') {
+        //     console.log('-------------inside if---------------');
+        //     let res = {
+        //         "attachment":{  
+        //             "type":"template",
+        //             "payload":{  
+        //                 "template_type":"button",
+        //                 "text":"Click the button below to login.",
+        //                 "buttons":[  
+        //                     {  
+        //                         "type":"web_url",
+        //                         "url":"https://servicenow2.herokuapp.com/webhook/close?psid=" + senderId,
+        //                         "title":"Login",
+        //                         "webview_height_ratio":"tall"
+        //                     }
+        //                 ]
+        //             }
+        //         }
+        //     };
+        // sendTextMessage(senderId, res);
+        // }
     });
 
     apiaiSession.on('error', error => console.log(error));
