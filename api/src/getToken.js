@@ -78,6 +78,8 @@ module.exports = {
         // response.redirect('https://www.messenger.com/closeWindow/?display_text=Authenticated');
     },
     storeToken : {
+        psid:'',
+        token:''
     }
 
 }
