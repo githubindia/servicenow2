@@ -8,7 +8,7 @@ module.exports = {
                 }
             });
             callback(null, response);
-        } else if (request.result.metadata.intentName == 'raiseRequest') {
+        } else if (request.result.metadata.intentName == 'raiseRequest') { 
 
          } //else if () {
 
