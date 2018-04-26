@@ -1,7 +1,12 @@
 module.exports = {
     "makeResponse": function(request, callback) {
         if (request.result.metadata.intentName == 'Default Welcome Intent') {
-            response = request.fulfillment.payload.facebook;
+            var response;
+            request.fulfillment.messages.forEach(function(element){
+                if (element.type == 4){
+                    response = element.payload.facebook;
+                }
+            });
             callback(null, response);
         } else if (request.result.metadata.intentName == 'raiseRequest') {
 
