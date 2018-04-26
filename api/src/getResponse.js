@@ -44,7 +44,7 @@ module.exports = {
             var desc = request.result.parameters.any;
             var token = global.session.token;
             serviceNow.logIncident(token, desc, function(err, body) {
-                var result = `Your incident has been created with the incident number ${serviceNowResponse.result.number}.`
+                var result = `Your incident has been created with the incident number ${body.result.number}.`
             })
             callback(null, result);
         }
