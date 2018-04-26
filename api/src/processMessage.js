@@ -37,7 +37,7 @@ module.exports = (event) => {
         // response.queryResult.fulfillmentMessages.forEach(function(element){
         //     arr.push()
         // })
-        getResponse.makeResponse(response, function(err, res){
+        getResponse.makeResponse(senderId, response, function(err, res){
             sendTextMessage(senderId, res);
         })
         // if (response.result.metadata.intentName == 'raiseRequest') {
