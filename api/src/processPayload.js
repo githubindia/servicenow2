@@ -30,7 +30,7 @@ module.exports = (event) => {
     var apiaiSession = apiAiClient.textRequest(message, {sessionId: senderId});
     apiaiSession.on('response', (response) => {
         console.log(JSON.stringify(response));
-        getResponse.makeResponse(response, function(err, res){
+        getResponse.makeResponse(senderId, response, function(err, res){
             sendTextMessage(senderId, res);
         })
     });
