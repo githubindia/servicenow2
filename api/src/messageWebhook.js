@@ -1,5 +1,5 @@
 const processMessage = require('./processMessage');
-const processPaylaod = require('./processPayload');
+const processPayload = require('./processPayload');
 var db = require('../db/mysql.js');
 
 module.exports = (req, res) => {
