@@ -124,7 +124,7 @@ module.exports = {
                 });
                 var result = `Hello! ${userName}. Here you can create or view all your requests.`
                 sendFBResponse.sendResponse(psid, result, function(err, body) {
-                    makeFBResponse.genericResponse(psid, function(res) {
+                    makeFBResponse.genericResponse(function(res) {
                         sendFBResponse.sendTemplate(psid, res, function(callback){
                             console.log("template send");
                         })
