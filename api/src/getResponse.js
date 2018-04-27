@@ -180,7 +180,7 @@ module.exports = {
             var name = " ";
             var arr = userName.split('.');
             arr.forEach(function(element){
-                name = name + element;
+                name = name + " " + element;
             })
             var result = `Hello! ${name}. Here you can create or view all your requests.`
             sendFBResponse.sendResponse(psid, result, function(err, body) {
