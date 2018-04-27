@@ -1,7 +1,7 @@
 var getToken = require('./getToken');
 var serviceNow = require('./servicenow');
 var sendFBResponse = require('./sendFBMessage');
-var makeFBresponse = require('./makeResponse');
+var makeFBResponse = require('./makeResponse');
 module.exports = {
     "makeResponse": function(senderId, request, callback) {
         console.log("----------------inside makeResponses");
