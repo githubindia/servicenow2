@@ -19,6 +19,7 @@ module.exports = {
         // global.session.storeToken.psid = psid;
         // global.session.storeToken.token = token;
         global.session.push({
+            "senderId":psid,
             "token":token
         })
         //console.log("done");

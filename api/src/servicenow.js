@@ -53,6 +53,20 @@ module.exports = {
         if (error) throw new Error(error);
         callback(null, body)
       });
+    },
+    'getRecords': function (token, callback) {
+      var options = { method: 'GET',
+        url: 'https://dev27552.service-now.com/api/now/table/incident',
+        headers: { 
+          'cache-control': 'no-cache',
+          'content-type': 'application/json',
+          authorization: `Bearer ${token}`
+        }
+      }
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        callback(null, body)
+      });
     }
- 
+
 }

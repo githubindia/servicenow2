@@ -1,16 +1,33 @@
 var getToken = require('./getToken');
 var serviceNow = require('./servicenow');
+var sendFBResponse = require('./sendFBMessage');
 module.exports = {
     "makeResponse": function(senderId, request, callback) {
         if (request.result.metadata.intentName == 'Default Welcome Intent') {
-
-            var response;
-            request.result.fulfillment.messages.forEach(function(element){
-                if (element.type == 4){
-                    response = element.payload.facebook;
+            session.forEach(function(element){
+                if(element.senderId == senderId) {
+                    serviceNow.getRecords(element.token, function(err, body){
+                        var userName = body.result.sys_updated_by;
+                        var response = `Hello there! ${userName}, Welcome to Genie+`.
+                        sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                            makeResponse.genericResponse(function(res){
+                                callback(null, res);
+                            })
+                        })
+                    })
+                } else {
+                    makeResponse.loginResponse(senderId, function(res){
+                        callback(res);
+                    })
                 }
             });
-            callback(null, response);
+            // var response;
+            // request.result.fulfillment.messages.forEach(function(element){
+            //     if (element.type == 4){
+            //         response = element.payload.facebook;
+            //     }
+            // });
+            // callback(null, response);
         } else if (request.result.metadata.intentName == 'raiseRequest') { 
 
         } else if (request.result.metadata.intentName == 'incident_initialized') {
@@ -40,7 +57,7 @@ module.exports = {
                 }
             };
             callback(null, res);
-        } else if (request.result.metadata.intentName == 'incident_description') {
+        } else if (request.result.metadata.intentName == 'incident_description') { 
             var desc = request.result.parameters.any;
             console.log(session);
             var token = session[0].token;
