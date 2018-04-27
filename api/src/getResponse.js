@@ -42,6 +42,7 @@ module.exports = {
             callback(null, res);
         } else if (request.result.metadata.intentName == 'incident_description') {
             var desc = request.result.parameters.any;
+            console.log(session);
             var token = session[0].token;
             console.log("---------------" + token);
             serviceNow.logIncident(token, desc, function(err, body) {
