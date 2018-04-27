@@ -6,6 +6,7 @@ module.exports = {
     "makeResponse": function(senderId, request, callback) {
         console.log("----------------inside makeResponses");
         if (request.result.metadata.intentName == 'Default Welcome Intent') {
+            console.log(session);
             session.forEach(function(element){
                 if(element.senderId == senderId) {
                     console.log("senderId found");
