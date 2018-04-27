@@ -63,7 +63,7 @@ module.exports = {
                     "template_type": "generic",
                     "elements": [
                         {
-                            "title": `Your incident has been created.                     ID: ${id}`,
+                            "title": `ID: ${id}`,
                             "subtitle": `Description: ${desc}`,
                             "buttons": [
                                 {

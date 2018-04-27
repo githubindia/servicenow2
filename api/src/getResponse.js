@@ -61,13 +61,15 @@ module.exports = {
                                 console.log(body);
                                 var id = body.result.number;
                                 var desc = body.result.short_description;
-                                console.log("-----------------------------------");
-                                makeFBResponse.getCardResponse(id, desc, function(res) {
-                                    console.log("--------" + res);
-                                    sendFBResponse.sendTemplate(senderId, res, function(err, body){
-                                        console.log("FB template message sent");
-                                    }) 
+                                var response = `Your incident has been created.`;
+                                sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                                    makeFBResponse.getCardResponse(id, desc, function(res) {
+                                        sendFBResponse.sendTemplate(senderId, res, function(err, body){
+                                            console.log("FB template message sent");
+                                        }) 
+                                    })
                                 })
+                                
                                 //var result = `Your incident has been created. with the incident number ${body.result.number}.`
                                 
                             })
