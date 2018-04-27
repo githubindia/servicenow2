@@ -1,6 +1,6 @@
 var request = require('request');
 module.exports = {
-    'sendResponse': function (psid, response, callback) {
+    "sendResponse": function (psid, response, callback) {
         request({
             url: 'https://graph.facebook.com/v2.6/me/messages',
             qs: { access_token: FACEBOOK_ACCESS_TOKEN },
