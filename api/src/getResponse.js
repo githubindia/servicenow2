@@ -16,7 +16,8 @@ module.exports = {
                             body = JSON.parse(body);
                             var userName = body.result[0].sys_updated_by;
                             var name = " ";
-                            userName.split('.').forEach(function(element){
+                            var arr = [];
+                            arr.forEach(function(element){
                                 name = name + element;
                             })
                             var response = `Hello there!${name}, Welcome to Service Desk.`;
