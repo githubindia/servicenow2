@@ -47,10 +47,11 @@ module.exports = {
             });
             callback(null, response);
         } else if (request.result.metadata.intentName == 'create_new_incident') {
-            console.log("inside create_new_incident");
             var response = request.result.fulfillment.speech;
-            console.log(response);
-            callback(null, response);
+            sendFBResponse.sendResponse(senderId, response, function(err, body){
+                console.log("plain FB message sent");
+            })
+            // callback(null, response);
             // if(session.length != 0) {
             //     session.forEach(function(element){
             //         if(element.senderId == senderId) {
