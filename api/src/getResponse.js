@@ -13,7 +13,8 @@ module.exports = {
                         console.log("senderId found");
                         console.log(element.token);
                         serviceNow.getRecords(element.token, function(err, body){
-                            console.log(body);
+                            //console.log(body);
+                            body = JSON.parse(body);
                             var userName = body.result[0].sys_updated_by;
                             var response = `Hello there! ${userName}, Welcome to Genie+`.
                             sendFBResponse.sendResponse(senderId, response, function(err, body) {
