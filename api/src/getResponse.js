@@ -16,7 +16,7 @@ module.exports = {
                             //console.log(body);
                             body = JSON.parse(body);
                             var userName = body.result[0].sys_updated_by;
-                            var response = `Hello there! ${userName}, Welcome to Genie+`.
+                            var response = `Hello there! ${userName}, Welcome to Genie+.`;
                             sendFBResponse.sendResponse(senderId, response, function(err, body) {
                                 makeFBResponse.genericResponse(function(res){
                                     callback(null, res);
