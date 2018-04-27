@@ -19,5 +19,22 @@ module.exports = {
             console.error("Unable to send message:" + err);
             }
         });
+    },
+    "sendTemplate": function(psid, res, callback) {
+        request({
+            url: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: { access_token: FACEBOOK_ACCESS_TOKEN },
+            method: 'POST',
+            json: {
+                recipient: { id: psid },
+                message: res
+            }
+        }, (err, res, body) => {
+            if (!err) {
+                console.log('message sent!')
+            } else {
+                console.error("Unable to send message:" + err);
+            }
+        });
     }
 }

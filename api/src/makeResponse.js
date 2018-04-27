@@ -33,7 +33,7 @@ module.exports = {
                     "elements": [
                         {
                             "title": "Welcome to service now",
-                            "image_url": "https://s3.envato.com/files/105583135/customer-outline-22590.jpg",
+                            "image_url": "https://previews.123rf.com/images/lembergvector/lembergvector1511/lembergvector151100034/47770592-time-24-customer-support-center-operator-service-icons-concept-vector-illustration-on-white-backgrou.jpg",
                             "subtitle": "We have the solution of all your queries. Please login to continue",
                             "buttons":[
                                 {  

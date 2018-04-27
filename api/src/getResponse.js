@@ -119,29 +119,37 @@ module.exports = {
         serviceNow.logIncident(token, desc, function(err, body) {
                 serviceNowResponse = body;
                 userName = serviceNowResponse.result.sys_updated_by;
-                serviceNow.deleteIncident(serviceNowResponse.result.sys_id, token, function(err, body){
+                serviceNow.deleteIncident(serviceNowResponse.result.sys_id, token, function(err, body) {
                     console.log(body);
                 });
-                result = `Hello! ${userName}. Please enter the description to create a request.`
-                request1({
-                    url: 'https://graph.facebook.com/v2.6/me/messages',
-                    qs: { access_token: FACEBOOK_ACCESS_TOKEN },
-                    method: 'POST',
-                    json: {
-                        recipient: { id: psid },
-                        message: {"text": result}
-                    }
-                }, (err, res, body) => {
-                    if (!err) {
-                        console.log('message sent!')
-                    } else {
-                        console.error("Unable to send message:" + err);
-                    }
-                });
-            });
+                var result = `Hello! ${userName}. Please enter the description to create a request.`
+                sendFBResponse.sendResponse(psid, result, function(err, body) {
+                    makeFBResponse.loginResponse(psid, function(res) {
+                        sendFBResponse.sendTemplate(psid, res, function(callback){
+                            console.log("template send");
+                        })
+                    })
+                })
+            //     request1({
+            //         url: 'https://graph.facebook.com/v2.6/me/messages',
+            //         qs: { access_token: FACEBOOK_ACCESS_TOKEN },
+            //         method: 'POST',
+            //         json: {
+            //             recipient: { id: psid },
+            //             message: {"text": result}
+            //         }
+            //     }, (err, res, body) => {
+            //         if (!err) {
+            //             console.log('message sent!')
+            //         } else {
+            //             console.error("Unable to send message:" + err);
+            //         }
+            //     });
+            // });
 
 
 
+    })
     },
     // Method to set senderId to passportJS session.
     "getUser": function (request, response) {
