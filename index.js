@@ -11,6 +11,7 @@ var taskDispatcher = require('./dispatcher/taskDispatcher');
 var getAuthorization = require('./dispatcher/getAuth');
 var snTask = require('./serviceNowAPI/task');
 var session = require('client-sessions');
+global.session = [];
 
 var port = process.env.PORT || 3000;
 

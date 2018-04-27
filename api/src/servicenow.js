@@ -41,14 +41,14 @@ module.exports = {
         });
     },
     'deleteIncident': function (id, token, callback) {
-        var options = { method: 'DELETE',
-        url: 'https://dev27552.service-now.com/api/now/table/incident/' + id,
-        headers: 
-        {
-        'cache-control': 'no-cache',
-        'content-type': 'application/json',
-        authorization: `Bearer ${token}` } };
-
+        var options = { 
+          method: 'DELETE',
+          url: `https://dev27552.service-now.com/api/now/table/incident/${id}`,
+          headers: {
+            'cache-control': 'no-cache',
+            authorization: 'Basic YWRtaW46SW5nb2xlc2lyQDE5OTU=' 
+          } 
+        };
       request(options, function (error, response, body) {
         if (error) throw new Error(error);
         callback(null, body)

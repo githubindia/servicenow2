@@ -7,7 +7,7 @@ var path = require('path');
 
 const verificationController = require('./src/verification');
 const messageWebhookController = require('./src/messageWebhook');
-const getTokenController = require('./src/getToken')
+const getTokenController = require('./src/getResponse')
 
 router.route('/')
 
