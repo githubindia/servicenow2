@@ -1,22 +1,26 @@
 var getToken = require('./getToken');
 var serviceNow = require('./servicenow');
 var sendFBResponse = require('./sendFBMessage');
+var makeFBresponse = require('./makeResponse');
 module.exports = {
     "makeResponse": function(senderId, request, callback) {
+        console.log("----------------inside makeResponses");
         if (request.result.metadata.intentName == 'Default Welcome Intent') {
             session.forEach(function(element){
                 if(element.senderId == senderId) {
+                    console.log("senderId found");
                     serviceNow.getRecords(element.token, function(err, body){
                         var userName = body.result.sys_updated_by;
                         var response = `Hello there! ${userName}, Welcome to Genie+`.
                         sendFBResponse.sendResponse(senderId, response, function(err, body) {
-                            makeResponse.genericResponse(function(res){
+                            makeFBResponse.genericResponse(function(res){
                                 callback(null, res);
                             })
                         })
                     })
                 } else {
-                    makeResponse.loginResponse(senderId, function(res) {
+                    console.log("senderId not found");
+                    makeFBResponse.loginResponse(senderId, function(res) {
                         callback(null, res);
                     })
                 }
