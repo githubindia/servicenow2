@@ -69,7 +69,7 @@ module.exports = {
                                 {
                                    "type":"web_url",
                                     "url":"#",
-                                    "title":"Login",
+                                    "title":"View",
                                     "webview_height_ratio":"tall"                                    
                                 }
                             ]
