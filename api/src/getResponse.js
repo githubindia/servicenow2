@@ -114,7 +114,7 @@ module.exports = {
             //     });
             // });
         //})();
-        //console.log(serviceNowResponse);
+        //console.log(serviceNowResponse); 
         var desc = "Some description";
         serviceNow.logIncident(token, desc, function(err, body) {
                 serviceNowResponse = body;
