@@ -47,49 +47,49 @@ module.exports = {
             });
             callback(null, response);
         } else if (request.result.metadata.intentName == 'enter_description') {
-            // if(request.result.fulfillment.speech != "") {
-            //     var desc = request.result.fulfillment.speech;
-            //     if(session.length != 0) {
-            //         session.forEach(function(element){
-            //             if(element.senderId == senderId) {
-            //                 serviceNow.logIncident(element.token, desc, function(err, body) {
-            //                     console.log(body);
-            //                     var result = `Your incident has been created with the incident number ${body.result.number}.`
-            //                     sendFBResponse.sendResponse(senderId, result, function(err, body){
-            //                         console.log("plain FB message sent");
-            //                     })
-            //                 })
-            //             } else {
-            //                 makeFBResponse.loginResponse(senderId, function(res) {
-            //                     callback(null, res);
-            //                 })
-            //             }
-            //         })
-            //     } else {
-            //         var response = `Please login first to continue.`;
-            //         sendFBResponse.sendResponse(senderId, response, function(err, body) {
-            //             makeFBResponse.loginResponse(senderId, function(res) {
-            //                     callback(null, res);
-            //             })
-            //         })
-            //     }
-            // } else {
-            //     var response = "Please enter the description to create incident."
-            //     sendFBResponse.sendResponse(senderId, response, function(err, body){
-            //         console.log("plain FB message sent");
-            //     });
-            // }
-            // callback(null, response);
-            // if(session.length != 0) {
-            //     session.forEach(function(element){
-            //         if(element.senderId == senderId) {
-            //             serviceNow.logIncident(element.token, desc, function(err, body) {
-            //                 console.log(body);
-            //                 var result = `Your incident has been created with the incident number ${body.result.number}.`
-            //             })
-            //         }
-            //     })
-            // }
+            if(request.result.parameters.description != "") {
+                var desc = request.result.parameters.description;
+                if(session.length != 0) {
+                    session.forEach(function(element){
+                        if(element.senderId == senderId) {
+                            serviceNow.logIncident(element.token, desc, function(err, body) {
+                                console.log(body);
+                                var result = `Your incident has been created with the incident number ${body.result.number}.`
+                                sendFBResponse.sendResponse(senderId, result, function(err, body){
+                                    console.log("plain FB message sent");
+                                })
+                            })
+                        } else {
+                            makeFBResponse.loginResponse(senderId, function(res) {
+                                callback(null, res);
+                            })
+                        }
+                    })
+                } else {
+                    var response = `Please login first to continue.`;
+                    sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                        makeFBResponse.loginResponse(senderId, function(res) {
+                                callback(null, res);
+                        })
+                    })
+                }
+            } else {
+                var response = "Please enter the description to create incident."
+                sendFBResponse.sendResponse(senderId, response, function(err, body){
+                    console.log("plain FB message sent");
+                });
+            }
+            callback(null, response);
+            if(session.length != 0) {
+                session.forEach(function(element){
+                    if(element.senderId == senderId) {
+                        serviceNow.logIncident(element.token, desc, function(err, body) {
+                            console.log(body);
+                            var result = `Your incident has been created with the incident number ${body.result.number}.`
+                        })
+                    }
+                })
+            }
             // let res = {
             //     "attachment":{  
             //         "type":"template",
