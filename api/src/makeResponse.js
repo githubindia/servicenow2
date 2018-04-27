@@ -63,12 +63,12 @@ module.exports = {
                     "template_type": "generic",
                     "elements": [
                         {
-                            "title": `Your incident has been created. \n ID: ${id}`,
+                            "title": `Your incident has been created. ID: ${id}`,
                             "subtitle": `Description: ${desc}`,
                             "buttons": [
                                 {
                                    "type":"web_url",
-                                    "url":"#",
+                                    "url":"https://www.google.com",
                                     "title":"View",
                                     "webview_height_ratio":"tall"                                    
                                 }

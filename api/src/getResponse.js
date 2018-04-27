@@ -61,6 +61,7 @@ module.exports = {
                                 console.log(body);
                                 var id = body.result.number;
                                 var desc = body.result.short_description;
+                                console.log("-----------------------------------");
                                 makeFBResponse.getCardResponse(id, desc, function(res) {
                                     console.log("--------" + res);
                                     sendFBResponse.sendTemplate(senderId, res, function(err, body){
