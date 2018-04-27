@@ -7,25 +7,34 @@ module.exports = {
         console.log("----------------inside makeResponses");
         if (request.result.metadata.intentName == 'Default Welcome Intent') {
             console.log(session);
-            session.forEach(function(element){
-                if(element.senderId == senderId) {
-                    console.log("senderId found");
-                    serviceNow.getRecords(element.token, function(err, body){
-                        var userName = body.result.sys_updated_by;
-                        var response = `Hello there! ${userName}, Welcome to Genie+`.
-                        sendFBResponse.sendResponse(senderId, response, function(err, body) {
-                            makeFBResponse.genericResponse(function(res){
-                                callback(null, res);
+            if(session.length != 0) {
+                session.forEach(function(element){
+                    if(element.senderId == senderId) {
+                        console.log("senderId found");
+                        serviceNow.getRecords(element.token, function(err, body){
+                            var userName = body.result[0].sys_updated_by;
+                            var response = `Hello there! ${userName}, Welcome to Genie+`.
+                            sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                                makeFBResponse.genericResponse(function(res){
+                                    callback(null, res);
+                                })
                             })
                         })
-                    })
-                } else {
-                    console.log("senderId not found");
+                    } else {
+                        console.log("senderId not found");
+                        makeFBResponse.loginResponse(senderId, function(res) {
+                            callback(null, res);
+                        })
+                    }
+                });
+            } else {
+                var response = `Hello! Welcome to Genie+. Please login to continue`.
+                sendFBResponse.sendResponse(senderId, response, function(err, body) {
                     makeFBResponse.loginResponse(senderId, function(res) {
-                        callback(null, res);
-                    })
-                }
-            });
+                            callback(null, res);
+                        })
+                })
+            }
             // var response;
             // request.result.fulfillment.messages.forEach(function(element){
             //     if (element.type == 4){
