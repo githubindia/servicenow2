@@ -115,6 +115,7 @@ module.exports = {
             // });
         //})();
         //console.log(serviceNowResponse); 
+        var desc = "Some description";
         serviceNow.logIncident(token, desc, function(err, body) {
                 serviceNowResponse = body;
                 userName = serviceNowResponse.result.sys_updated_by;
