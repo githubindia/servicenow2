@@ -28,7 +28,7 @@ module.exports = {
                     }
                 });
             } else {
-                var response = `Hello! Welcome to Genie+. Please login to continue`.
+                var response = `Hello! Welcome to Genie+. Please login to continue.`;
                 sendFBResponse.sendResponse(senderId, response, function(err, body) {
                     makeFBResponse.loginResponse(senderId, function(res) {
                             callback(null, res);
