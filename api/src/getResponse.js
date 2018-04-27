@@ -16,8 +16,8 @@ module.exports = {
                         })
                     })
                 } else {
-                    makeResponse.loginResponse(senderId, function(res){
-                        callback(res);
+                    makeResponse.loginResponse(senderId, function(res) {
+                        callback(null, res);
                     })
                 }
             });
