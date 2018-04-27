@@ -47,6 +47,7 @@ module.exports = {
             });
             callback(null, response);
         } else if (request.result.metadata.intentName == 'create_new_incident') {
+            console.log("inside create_new_incident");
             var response = request.result.fulfillment.speech;
             callback(null, response);
             // if(session.length != 0) {
