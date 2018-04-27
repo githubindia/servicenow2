@@ -15,7 +15,11 @@ module.exports = {
                         serviceNow.getRecords(element.token, function(err, body){
                             body = JSON.parse(body);
                             var userName = body.result[0].sys_updated_by;
-                            var response = `Hello there! ${userName}, Welcome to Genie+.`;
+                            var name = " ";
+                            userName.split('.').forEach(function(element){
+                                name = name + element;
+                            })
+                            var response = `Hello there!${name}, Welcome to Service Desk.`;
                             sendFBResponse.sendResponse(senderId, response, function(err, body) {
                                 makeFBResponse.genericResponse(function(res){
                                     callback(null, res);
@@ -29,7 +33,7 @@ module.exports = {
                     }
                 });
             } else {
-                var response = `Hello! Welcome to Genie+. Please login to continue.`;
+                var response = `Hello! Welcome to Service Desk. Please login to continue.`;
                 sendFBResponse.sendResponse(senderId, response, function(err, body) {
                     makeFBResponse.loginResponse(senderId, function(res) {
                             callback(null, res);
@@ -54,10 +58,15 @@ module.exports = {
                         if(element.senderId == senderId) {
                             serviceNow.logIncident(element.token, desc, function(err, body) {
                                 console.log(body);
-                                var result = `Your incident has been created with the incident number ${body.result.number}.`
-                                sendFBResponse.sendResponse(senderId, result, function(err, body){
-                                    console.log("plain FB message sent");
+                                var id = body.result.number;
+                                var desc = body.result.short_description;
+                                makeFBResponse.getCardResponse(id, desc, function(res) {
+                                    sendFBResponse.sendTemplate(senderId, res, function(err, body){
+                                        console.log("FB template message sent");
+                                    }) 
                                 })
+                                //var result = `Your incident has been created. with the incident number ${body.result.number}.`
+                                
                             })
                         } else {
                             makeFBResponse.loginResponse(senderId, function(res) {

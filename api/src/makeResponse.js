@@ -7,14 +7,19 @@ module.exports = {
                     "template_type": "generic",
                     "elements": [
                         {
-                            "title": "Welcome to service now",
+                            "title": "Welcome to Service Desk Assistant.",
                             "image_url": "https://s3.envato.com/files/105583135/customer-outline-22590.jpg",
                             "subtitle": "We have the solution of all your queries. Please login to continue",
                             "buttons": [
                                 {
                                     "type": "postback",
-                                    "title": "INCIDENT REQUEST",
+                                    "title": "Incident Request",
                                     "payload": "initialize_incident_request"
+                                },
+                                {
+                                    "type": "postback",
+                                    "title": "Service Request",
+                                    "payload": "initialize_service_request"
                                 }
                             ]
                         }
@@ -32,7 +37,7 @@ module.exports = {
                     "template_type": "generic",
                     "elements": [
                         {
-                            "title": "Welcome to service now",
+                            "title": "Welcome to Service Desk Assistant.",
                             "image_url": "https://previews.123rf.com/images/lembergvector/lembergvector1511/lembergvector151100034/47770592-time-24-customer-support-center-operator-service-icons-concept-vector-illustration-on-white-backgrou.jpg",
                             "subtitle": "We have the solution of all your queries. Please login to continue",
                             "buttons":[
@@ -49,5 +54,29 @@ module.exports = {
             }
         }
         callback(response);
+    },
+    "getCardResponse": function(id, desc, callback) {
+        var response = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": [
+                        {
+                            "title": `Your incident has been created. \n ID: ${id}`,
+                            "subtitle": `Description: ${desc}`,
+                            "buttons": [
+                                {
+                                   "type":"web_url",
+                                    "url":"#",
+                                    "title":"Login",
+                                    "webview_height_ratio":"tall"                                    
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
     }
 }
