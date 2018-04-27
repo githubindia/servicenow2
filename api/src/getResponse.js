@@ -16,7 +16,7 @@ module.exports = {
                             body = JSON.parse(body);
                             var userName = body.result[0].sys_updated_by;
                             var name = " ";
-                            var arr = [];
+                            var arr = userName.split('.');
                             arr.forEach(function(element){
                                 name = name + element;
                             })
@@ -92,16 +92,16 @@ module.exports = {
                 });
             }
             callback(null, response);
-            if(session.length != 0) {
-                session.forEach(function(element){
-                    if(element.senderId == senderId) {
-                        serviceNow.logIncident(element.token, desc, function(err, body) {
-                            console.log(body);
-                            var result = `Your incident has been created with the incident number ${body.result.number}.`
-                        })
-                    }
-                })
-            }
+            // if(session.length != 0) {
+            //     session.forEach(function(element){
+            //         if(element.senderId == senderId) {
+            //             serviceNow.logIncident(element.token, desc, function(err, body) {
+            //                 console.log(body);
+            //                 var result = `Your incident has been created with the incident number ${body.result.number}.`
+            //             })
+            //         }
+            //     })
+            // }
             // let res = {
             //     "attachment":{  
             //         "type":"template",
@@ -177,7 +177,12 @@ module.exports = {
             serviceNow.deleteIncident(serviceNowResponse.result.sys_id, token, function(err, body) {
                 console.log(body);
             });
-            var result = `Hello! ${userName}. Here you can create or view all your requests.`
+            var name = " ";
+            var arr = userName.split('.');
+            arr.forEach(function(element){
+                name = name + element;
+            })
+            var result = `Hello! ${name}. Here you can create or view all your requests.`
             sendFBResponse.sendResponse(psid, result, function(err, body) {
                 makeFBResponse.genericResponse(function(res) {
                     sendFBResponse.sendTemplate(psid, res, function(callback){
