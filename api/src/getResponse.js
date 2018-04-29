@@ -142,6 +142,24 @@ module.exports = {
                         if(element.senderId == senderId) {
                             serviceNow.statusIncident(element.token, incNumber, function(err, body) {
                                 console.log(body + "~~~~~~~~");
+                                if (body.error) {
+                                    var response = `Record doesn't exist or you are not authorized to view status for incident number ${incNumber}.`;
+                                    sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                                        console.log(body);
+                                    });
+                                } else {
+                                    var desc = body.result[0].short_description;
+                                    var sysId = body.result[0].sys_id;
+                                    var response = `Incident request was found. Below are the details.
+                                                    Your ticket is ${body.result[0].active ? "active.": "not active."}`;
+                                    sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                                        makeFBResponse.getCardResponse(incNumber, desc, sysId, function(res) {
+                                            sendFBResponse.sendTemplate(senderId, res, function(err, body){
+                                                console.log("FB template message sent");
+                                            }) 
+                                        })
+                                    });
+                                }
                                 // var id = body.result.number;
                                 // var desc = body.result.short_description;
                                 // var sysId = body.result.sys_id;
