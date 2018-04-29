@@ -135,7 +135,9 @@ module.exports = {
             callback(null, result);
         } else if (request.result.metadata.intentName == "incident_by_number") {
             response = `Please enter the incident number to view status.`;
-            callback(null, response);
+            sendFBResponse.sendResponse(senderId, response, function(err, body){
+                console.log(body);
+            });
         }
     },
     // After getting token this method called.
