@@ -61,9 +61,10 @@ module.exports = {
                                 console.log(body);
                                 var id = body.result.number;
                                 var desc = body.result.short_description;
+                                var sysId = body.result.sys_id;
                                 var response = `Your incident has been created.`;
                                 sendFBResponse.sendResponse(senderId, response, function(err, body) {
-                                    makeFBResponse.getCardResponse(id, desc, function(res) {
+                                    makeFBResponse.getCardResponse(id, desc, sysId, function(res) {
                                         sendFBResponse.sendTemplate(senderId, res, function(err, body){
                                             console.log("FB template message sent");
                                         }) 

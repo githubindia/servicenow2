@@ -55,7 +55,7 @@ module.exports = {
         }
         callback(response);
     },
-    "getCardResponse": function(id, desc, callback) {
+    "getCardResponse": function(id, desc, sysId, callback) {
         var response = {
             "attachment": {
                 "type": "template",
@@ -68,7 +68,7 @@ module.exports = {
                             "buttons": [
                                 {
                                    "type":"web_url",
-                                    "url":"https://www.google.com",
+                                    "url":`https://dev27552.service-now.com/nav_to.do?uri=/incident.do?sys_id=${sysId}`,
                                     "title":"View",
                                     "webview_height_ratio":"tall"                                    
                                 }

@@ -67,6 +67,22 @@ module.exports = {
         if (error) throw new Error(error);
         callback(null, body)
       });
+    },
+    "viewCreatedIncident": function(sysId, token, callback) {
+      var options = { 
+        method: 'GET',
+        url: 'https://dev27552.service-now.com/nav_to.do',
+        qs: { uri: `/incident.do?sys_id=${sysId}` },
+        headers: { 
+          'Cache-Control': 'no-cache',
+          authorization: `Bearer ${token}`
+        } 
+      };
+
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        callback(null, body)
+      });
     }
 
 }
