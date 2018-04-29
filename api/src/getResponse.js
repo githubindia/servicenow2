@@ -5,6 +5,7 @@ var request1 = require('request');
 var serviceNow = require('./servicenow');
 var sendFBResponse = require('./sendFBMessage');
 var makeFBResponse = require('./makeResponse');
+var regExp = RegExp(/(inc|Inc|iNc|InC|inC|iNC|INc)\d{6}/);
 module.exports = {
     "makeResponse": function(senderId, request, callback) {
         console.log("----------------inside makeResponses");
@@ -134,7 +135,7 @@ module.exports = {
             })
             callback(null, result);
         } else if (request.result.metadata.intentName == "incident_by_number") {
-            if(request.result.parameters.incidentNumber != "") {
+            if(request.result.parameters.incidentNumber != "" && regExp.test(request.result.parameters.incidentNumber)) {
                 var incNumber = request.result.parameters.incidentNumber;
                 if(session.length != 0) {
                     session.forEach(function(element){
