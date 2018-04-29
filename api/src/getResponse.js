@@ -133,6 +133,9 @@ module.exports = {
                 var result = `Your incident has been created with the incident number ${body.result.number}.`
             })
             callback(null, result);
+        } else if (request.result.metadata.intentName == "incident_by_number") {
+            response = `Please enter the incident number to view status.`;
+            callback(null, response);
         }
     },
     // After getting token this method called.
