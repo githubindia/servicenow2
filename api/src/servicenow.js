@@ -22,16 +22,16 @@ module.exports = {
         // console.log(body);
       });
     },
-    'statusIncident' : function(ticketnumber, callback){
+    'statusIncident' : function(token, ticketnumber, callback){
  
         console.log("The Final Message Utterance to send GET as Query to Service Now");
         var options = { method: 'GET',
-          url: 'https://dev18442.service-now.com/api/now/v1/table/incident',
+          url: 'https://dev27552.service-now.com/api/now/v1/table/incident',
           qs: { number: ticketnumber },
           headers:
            { 'postman-token': '5441f224-d11a-2f78-69cd-51e58e2fbdb6',
              'cache-control': 'no-cache',
-             authorization: 'Basic MzMyMzg6YWJjMTIz' } };
+             authorization: `Bearer ${token}` } };
  
         request(options, function (error, response, body) {
           if (error) throw new Error(error);

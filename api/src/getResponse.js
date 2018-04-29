@@ -134,10 +134,49 @@ module.exports = {
             })
             callback(null, result);
         } else if (request.result.metadata.intentName == "incident_by_number") {
-            response = `Please enter the incident number to view status.`;
-            sendFBResponse.sendResponse(senderId, response, function(err, body){
-                console.log(body);
-            });
+            if(request.result.parameters.incidentNumber != "") {
+                var incNumber = request.result.parameters.incidentNumber;
+                if(session.length != 0) {
+                    session.forEach(function(element){
+                        if(element.senderId == senderId) {
+                            serviceNow.statusIncident(element.token, incNumber, function(err, body) {
+                                console.log(body + "~~~~~~~~");
+                                // var id = body.result.number;
+                                // var desc = body.result.short_description;
+                                // var sysId = body.result.sys_id;
+                                // var response = `Your incident has been created.`;
+                                // sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                                //     makeFBResponse.getCardResponse(id, desc, sysId, function(res) {
+                                //         sendFBResponse.sendTemplate(senderId, res, function(err, body){
+                                //             console.log("FB template message sent");
+                                //         }) 
+                                //     })
+                                // })
+                                
+                                //var result = `Your incident has been created. with the incident number ${body.result.number}.`
+                                
+                            })
+                        } else {
+                            makeFBResponse.loginResponse(senderId, function(res) {
+                                callback(null, res);
+                            })
+                        }
+                    })
+                } else {
+                    var response = `Please login first to continue.`;
+                    sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                        makeFBResponse.loginResponse(senderId, function(res) {
+                                callback(null, res);
+                        })
+                    })
+                }
+            } else {
+                response = `Please enter the incident number to view status.`;
+                sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                    console.log(body);
+                });
+            }
+            
         }
     },
     // After getting token this method called.
