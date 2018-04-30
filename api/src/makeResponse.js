@@ -79,5 +79,17 @@ module.exports = {
             }
         }
         callback(response);
+    },
+    "getCorousalResponse": function(arr, callback) {
+        var response = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": arr
+                }
+            }
+        }
+        callback(response);
     }
 }

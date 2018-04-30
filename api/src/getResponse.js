@@ -204,12 +204,31 @@ module.exports = {
                     if(element.senderId == senderId) {
                         serviceNow.getRecords(element.token, function(err, body) {
                             body = JSON.parse(body);
+                            var arr = [];
                             var length = body.result.length;
                             for (i = length - 1; i >= length - 5; i--) {
                                 var id = body.result[i].number;
                                 var desc = body.result[i].short_description;
-
+                                var sysId = body.result[i].sys_id;
+                                    arr.push({
+                                        "title": `ID: ${id}`,
+                                        "image_url": "https://previews.123rf.com/images/lembergvector/lembergvector1511/lembergvector151100034/47770592-time-24-customer-support-center-operator-service-icons-concept-vector-illustration-on-white-backgrou.jpg",
+                                        "subtitle": `desc: ${desc}`,
+                                        "buttons":[
+                                            {  
+                                                "type":"web_url",
+                                                "url":`https://dev27552.service-now.com/nav_to.do?uri=/incident.do?sys_id=${sysId}`,
+                                                "title":"View",
+                                                "webview_height_ratio":"tall"
+                                            }
+                                        ]
+                                    });
                             }
+                            makeFBResponse.getCorousalResponse(arr, function (res) {
+                                sendFBResponse.sendTemplate(senderId, res, function(body){
+                                    console.log("corousal sent");
+                                })
+                            })
                         })
                     } else {
                         makeFBResponse.loginResponse(senderId, function(res) {
