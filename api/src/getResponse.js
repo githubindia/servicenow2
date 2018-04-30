@@ -211,7 +211,7 @@ module.exports = {
                                 var id = body.result[i].number;
                                 var desc = body.result[i].short_description;
                                 var sysId = body.result[i].sys_id;
-                                var dt = moment(new Date(body.result[i].opened_at)).format('MMMM Do YYYY, h:mm:ss a');
+                                var dt = moment(new Date(body.result[i].opened_at)).format('MMMM Do YYYY, h:mm:ss A');
                                 var category = body.result[i].category;
                                     arr.push({
                                         "title": `Incident: ${id}`,
@@ -229,6 +229,7 @@ module.exports = {
                             makeFBResponse.getCorousalResponse(arr, function (res) {
                                 sendFBResponse.sendTemplate(senderId, res, function(body){
                                     makeFBResponse.getQuickReplyResponse(function(res) {
+                                        console.log(res);
                                         sendFBResponse.sendTemplate(senderId, res, function (body) {
                                             console.log("courousal sent with quick reply.");
                                         })
