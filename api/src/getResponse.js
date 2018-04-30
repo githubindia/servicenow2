@@ -215,7 +215,7 @@ module.exports = {
                                 var category = body.result[i].category;
                                     arr.push({
                                         "title": `Incident: ${id}`,
-                                        "subtitle": `Category: ${category} \n Date: ${dt}`,
+                                        "subtitle": `Category: ${category} \nDate: ${dt}`,
                                         "buttons":[
                                             {  
                                                 "type":"web_url",
