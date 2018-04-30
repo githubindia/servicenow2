@@ -163,7 +163,7 @@ module.exports = {
                                     //     })
                                     // });
                                     // serviceNow.getRecords(element.token, function(err, body) {
-                                    body = JSON.parse(body);
+                                    // body = JSON.parse(body);
                                     var arr = [];
                                     var result = body.result[0];
                                     var id = result.number;
