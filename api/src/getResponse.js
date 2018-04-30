@@ -226,11 +226,13 @@ module.exports = {
                 })
             }
         } else if (request.result.metadata.intentName == "show_incident_view_options") {
+            var response;
             request.result.fulfillment.messages.forEach(function(element){
                 if (element.type == 4){
                     response = element.payload.facebook;
                 }
             });
+            callback(null, response);
         }
     },
     // After getting token this method called.
