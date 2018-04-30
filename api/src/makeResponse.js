@@ -91,5 +91,28 @@ module.exports = {
             }
         }
         callback(response);
+    },
+    "getQuickReplyResponse": function(callback) {
+        var response = {
+            "text": "Is there anything else I can help you with.",
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "Raise Incident",
+                    "payload": "create_new_incident_request"
+                },
+                {
+                    "content_type": "text",
+                    "title": "View Incident",
+                    "payload": "view_incident_by_number"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Thank you",
+                    "payload": "thank_you_intent"
+                }
+            ]
+        }
+        callback(response);
     }
 }

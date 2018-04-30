@@ -228,7 +228,11 @@ module.exports = {
                             }
                             makeFBResponse.getCorousalResponse(arr, function (res) {
                                 sendFBResponse.sendTemplate(senderId, res, function(body){
-                                    console.log("corousal sent");
+                                    makeFBResponse.getQuickReplyResponse(function(res) {
+                                        sendFBResponse.sendTemplate(senderId, res, function (body) {
+                                            console.log("courousal sent with quick reply.");
+                                        })
+                                    })
                                 })
                             })
                         })
