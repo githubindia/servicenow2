@@ -267,7 +267,7 @@ module.exports = {
                         serviceNow.getRecords(element.token, function(err, body) {
                             body = JSON.parse(body);
                             var arr = [];
-                            var result = body.result[result.length-1];
+                            var result = body.result[body.result.length-1];
                             var id = result.number;
                             var desc = result.short_description;
                             var sysId = result.sys_id;
