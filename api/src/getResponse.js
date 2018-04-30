@@ -175,7 +175,7 @@ module.exports = {
                                     category = category.charAt(0).toUpperCase() + category.slice(1);
                                     arr.push({
                                         "title": `Incident: ${id}`,
-                                        "subtitle": `Category: ${category} \nDate: ${dt} \n${active ? "active.": "not active."}`,
+                                        "subtitle": `Category: ${category} \nDate: ${dt} \nStatus: ${active ? "active.": "not active."}`,
                                         "buttons":[
                                             {  
                                                 "type":"web_url",
@@ -314,7 +314,7 @@ module.exports = {
                             category = category.charAt(0).toUpperCase() + string.slice(1);
                             arr.push({
                                 "title": `Incident: ${id}`,
-                                "subtitle": `Category: ${category} \nDate: ${dt} \n${active ? "active.": "not active."}`,
+                                "subtitle": `Category: ${category} \nDate: ${dt} \nStatus: ${active ? "active.": "not active."}`,
                                 "buttons":[
                                     {  
                                         "type":"web_url",
