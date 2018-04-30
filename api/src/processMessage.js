@@ -34,7 +34,7 @@ module.exports = (event) => {
         message = event.message.text;
     }
     var apiaiSession = apiAiClient.textRequest(message, {sessionId: senderId});
-    //console.log(JSON.stringify(apiaiSession));
+    //console.log(JSON.stringify(apiaiSession)); 
     apiaiSession.on('response', (response) => {
         console.log(JSON.stringify(response));
         //console.log(JSON.stringify(response));
