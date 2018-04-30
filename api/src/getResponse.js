@@ -148,6 +148,7 @@ module.exports = {
                                         console.log(body);
                                     });
                                 } else {
+                                    body = JSON.parse(body);
                                     var desc = body.result[0].short_description;
                                     var sysId = body.result[0].sys_id;
                                     var response = `Incident request was found. Below are the details.
