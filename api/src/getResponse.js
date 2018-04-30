@@ -2,6 +2,7 @@ var path = require('path');
 const FACEBOOK_ACCESS_TOKEN = 'EAAc6hI7VvPwBAHboQmC66s33wksVxCsAjOZAr5scCnsEFc0P2IrFrOvEO9jip3rjoZBo0PDzTckZAWVPwOZC9POI8GldBEALmpP6q8NTeU4ZA0XIp7ZB96gj0rqcSfYR3HQ6Ue3oTmBUNA6Q6lhELpNmtZAj3ttn23lIXh16kTeqQZDZD';
 var deasync = require('deasync');
 var request1 = require('request');
+var moment = require('moment');
 var serviceNow = require('./servicenow');
 var sendFBResponse = require('./sendFBMessage');
 var makeFBResponse = require('./makeResponse');
@@ -210,10 +211,12 @@ module.exports = {
                                 var id = body.result[i].number;
                                 var desc = body.result[i].short_description;
                                 var sysId = body.result[i].sys_id;
+                                var dt = moment(new Date(body.result[i].opened_at)).format('MMMM Do YYYY, h:mm:ss a');
+                                var category = body.result[i].category;
                                     arr.push({
-                                        "title": `ID: ${id}`,
-                                        "image_url": "https://previews.123rf.com/images/lembergvector/lembergvector1511/lembergvector151100034/47770592-time-24-customer-support-center-operator-service-icons-concept-vector-illustration-on-white-backgrou.jpg",
-                                        "subtitle": `desc: ${desc}`,
+                                        "title": `Incident: ${id}`,
+                                        "subtitle": `Category: ${category}
+                                                            Date: ${dt}`,
                                         "buttons":[
                                             {  
                                                 "type":"web_url",
