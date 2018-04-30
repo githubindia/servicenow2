@@ -20,7 +20,7 @@ module.exports = {
                             var name = " ";
                             var arr = userName.split('.');
                             arr.forEach(function(element){
-                                name = name + element;
+                                name = name + " " + element;
                             })
                             var response = `Hello there!${name}, Welcome to Service Desk.`;
                             sendFBResponse.sendResponse(senderId, response, function(err, body) {
@@ -150,18 +150,54 @@ module.exports = {
                                     });
                                 } else {
                                     // body = JSON.parse(body);
-                                    var id = body.result[0].number;
-                                    var desc = body.result[0].short_description;
-                                    var sysId = body.result[0].sys_id;
-                                    var response = `Incident request was found. Below are the details.
-                                                            Your ticket is ${body.result[0].active ? "active.": "not active."}`;
-                                    sendFBResponse.sendResponse(senderId, response, function(err, body) {
-                                        makeFBResponse.getCardResponse(id, desc, sysId, function(res) {
-                                            sendFBResponse.sendTemplate(senderId, res, function(err, body){
-                                                console.log("FB template message sent");
-                                            }) 
-                                        })
+                                    // var id = body.result[0].number;
+                                    // var desc = body.result[0].short_description;
+                                    // var sysId = body.result[0].sys_id;
+                                    // var response = `Incident request was found. Below are the details.
+                                    //                         Your ticket is ${body.result[0].active ? "active.": "not active."}`;
+                                    // sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                                    //     makeFBResponse.getCardResponse(id, desc, sysId, function(res) {
+                                    //         sendFBResponse.sendTemplate(senderId, res, function(err, body){
+                                    //             console.log("FB template message sent");
+                                    //         }) 
+                                    //     })
+                                    // });
+                                    // serviceNow.getRecords(element.token, function(err, body) {
+                                    body = JSON.parse(body);
+                                    var arr = [];
+                                    var result = body.result[0];
+                                    var id = result.number;
+                                    var desc = result.short_description;
+                                    var sysId = result.sys_id;
+                                    var dt = moment(new Date(result.opened_at)).format('MMMM Do YYYY, h:mm:ss A');
+                                    var active = result.active;
+                                    var category = result.category;
+                                    category = category.charAt(0).toUpperCase() + string.slice(1);
+                                    arr.push({
+                                        "title": `Incident: ${id}`,
+                                        "subtitle": `Category: ${category} \nDate: ${dt} \n${active ? "active.": "not active."}`,
+                                        "buttons":[
+                                            {  
+                                                "type":"web_url",
+                                                "url":`https://dev27552.service-now.com/nav_to.do?uri=/incident.do?sys_id=${sysId}`,
+                                                "title":"View",
+                                                "webview_height_ratio":"tall"
+                                            }
+                                        ]
                                     });
+                                    makeFBResponse.getCorousalResponse(arr, function (res) {
+                                        sendFBResponse.sendTemplate(senderId, res, function(body) {
+                                        console.log("response sent ----");
+                                            makeFBResponse.getQuickReplyResponse(function(res) {
+                                                console.log(res);
+                                                sendFBResponse.sendTemplate(senderId, res, function (body) {
+                                                    console.log("courousal sent with quick reply.");
+                                                })
+                                            })
+                                        })
+                                    })
+
+                        // })
                                 }
                                 // var id = body.result.number;
                                 // var desc = body.result.short_description;
@@ -213,9 +249,10 @@ module.exports = {
                                 var sysId = body.result[i].sys_id;
                                 var dt = moment(new Date(body.result[i].opened_at)).format('MMMM Do YYYY, h:mm:ss A');
                                 var category = body.result[i].category;
+                                category = category.charAt(0).toUpperCase() + string.slice(1);
                                     arr.push({
                                         "title": `Incident: ${id}`,
-                                        "subtitle": `Category: ${category} \nDate: ${dt}`,
+                                        "subtitle": `Category: ${category} \nDate: ${dt} \n${active ? "active.": "not active."}`,
                                         "buttons":[
                                             {  
                                                 "type":"web_url",
@@ -272,10 +309,12 @@ module.exports = {
                             var desc = result.short_description;
                             var sysId = result.sys_id;
                             var dt = moment(new Date(result.opened_at)).format('MMMM Do YYYY, h:mm:ss A');
+                            var active = result.active;
                             var category = result.category;
+                            category = category.charAt(0).toUpperCase() + string.slice(1);
                             arr.push({
                                 "title": `Incident: ${id}`,
-                                "subtitle": `Category: ${category} \nDate: ${dt}`,
+                                "subtitle": `Category: ${category} \nDate: ${dt} \n${active ? "active.": "not active."}`,
                                 "buttons":[
                                     {  
                                         "type":"web_url",
