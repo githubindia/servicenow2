@@ -141,7 +141,6 @@ module.exports = {
                     session.forEach(function(element){
                         if(element.senderId == senderId) {
                             serviceNow.statusIncident(element.token, incNumber, function(err, body) {
-                                console.log(body + "~~~~~~~~");
                                 body = JSON.parse(body);
                                 if (body.error.detail != "") {
                                     var response = `Record doesn't exist or you are not authorized to view status for incident number ${incNumber}.`;
@@ -199,6 +198,39 @@ module.exports = {
                 });
             }
             
+        } else if (request.result.metadata.intentName == "last_five_incidents") {
+            if(session.length != 0) {
+                session.forEach(function(element){
+                    if(element.senderId == senderId) {
+                        serviceNow.getRecords(element.token, function(err, body) {
+                            body = JSON.parse(body);
+                            var length = body.result.length;
+                            for (i = length - 1; i >= length - 5; i--) {
+                                var id = body.result[i].number;
+                                var desc = body.result[i].short_description;
+
+                            }
+                        })
+                    } else {
+                        makeFBResponse.loginResponse(senderId, function(res) {
+                            callback(null, res);
+                        })
+                    }
+                })
+            } else {
+                var response = `Please login first to continue.`;
+                sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                    makeFBResponse.loginResponse(senderId, function(res) {
+                            callback(null, res);
+                    })
+                })
+            }
+        } else if (request.result.metadata.intentName == "show_incident_view_options") {
+            request.result.fulfillment.messages.forEach(function(element){
+                if (element.type == 4){
+                    response = element.payload.facebook;
+                }
+            });
         }
     },
     // After getting token this method called.
