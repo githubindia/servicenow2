@@ -149,12 +149,13 @@ module.exports = {
                                     });
                                 } else {
                                     body = JSON.parse(body);
+                                    var id = body.result[0].number;
                                     var desc = body.result[0].short_description;
                                     var sysId = body.result[0].sys_id;
                                     var response = `Incident request was found. Below are the details.
-                                                    Your ticket is ${body.result[0].active ? "active.": "not active."}`;
+                                                            Your ticket is ${body.result[0].active ? "active.": "not active."}`;
                                     sendFBResponse.sendResponse(senderId, response, function(err, body) {
-                                        makeFBResponse.getCardResponse(incNumber, desc, sysId, function(res) {
+                                        makeFBResponse.getCardResponse(number, desc, sysId, function(res) {
                                             sendFBResponse.sendTemplate(senderId, res, function(err, body){
                                                 console.log("FB template message sent");
                                             }) 
