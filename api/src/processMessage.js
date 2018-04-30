@@ -29,7 +29,7 @@ module.exports = (event) => {
     //const message = event.message.text;
     var message;
     if (event.message.quick_reply != undefined) {
-        message = event.message.quick_reply;
+        message = event.message.quick_reply.payload;
     } else {
         message = event.message.text;
     }
