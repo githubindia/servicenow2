@@ -227,7 +227,8 @@ module.exports = {
                                     });
                             }
                             makeFBResponse.getCorousalResponse(arr, function (res) {
-                                sendFBResponse.sendTemplate(senderId, res, function(body){
+                                sendFBResponse.sendTemplate(senderId, res, function(body) {
+                                    console.log("response sent ----");
                                     makeFBResponse.getQuickReplyResponse(function(res) {
                                         console.log(res);
                                         sendFBResponse.sendTemplate(senderId, res, function (body) {
