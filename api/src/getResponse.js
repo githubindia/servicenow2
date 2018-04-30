@@ -142,13 +142,14 @@ module.exports = {
                         if(element.senderId == senderId) {
                             serviceNow.statusIncident(element.token, incNumber, function(err, body) {
                                 console.log(body + "~~~~~~~~");
+                                body = JSON.parse(body);
                                 if (body.error.detail != "") {
                                     var response = `Record doesn't exist or you are not authorized to view status for incident number ${incNumber}.`;
                                     sendFBResponse.sendResponse(senderId, response, function(err, body) {
                                         console.log(body);
                                     });
                                 } else {
-                                    body = JSON.parse(body);
+                                    // body = JSON.parse(body);
                                     var id = body.result[0].number;
                                     var desc = body.result[0].short_description;
                                     var sysId = body.result[0].sys_id;
