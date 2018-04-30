@@ -104,7 +104,7 @@ module.exports = {
                 {
                     "content_type": "text",
                     "title": "View Incident",
-                    "payload": "view_incident_by_number"
+                    "payload": "show_incident_options_to_choose"
                 },
                 {
                     "content_type": "text",

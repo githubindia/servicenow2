@@ -260,6 +260,58 @@ module.exports = {
                 }
             });
             callback(null, response);
+        } else if (request.result.metadata.intentName == "latest_incident") {
+            if(session.length != 0) {
+                session.forEach(function(element){
+                    if(element.senderId == senderId) {
+                        serviceNow.getRecords(element.token, function(err, body) {
+                            body = JSON.parse(body);
+                            var arr = [];
+                            var result = body.result[result.length-1];
+                            var id = result.number;
+                            var desc = result.short_description;
+                            var sysId = result.sys_id;
+                            var dt = moment(new Date(result.opened_at)).format('MMMM Do YYYY, h:mm:ss A');
+                            var category = result.category;
+                            arr.push({
+                                "title": `Incident: ${id}`,
+                                "subtitle": `Category: ${category} \nDate: ${dt}`,
+                                "buttons":[
+                                    {  
+                                        "type":"web_url",
+                                        "url":`https://dev27552.service-now.com/nav_to.do?uri=/incident.do?sys_id=${sysId}`,
+                                        "title":"View",
+                                        "webview_height_ratio":"tall"
+                                    }
+                                ]
+                            });
+                            makeFBResponse.getCorousalResponse(arr, function (res) {
+                                sendFBResponse.sendTemplate(senderId, res, function(body) {
+                                console.log("response sent ----");
+                                    makeFBResponse.getQuickReplyResponse(function(res) {
+                                        console.log(res);
+                                        sendFBResponse.sendTemplate(senderId, res, function (body) {
+                                            console.log("courousal sent with quick reply.");
+                                        })
+                                    })
+                                })
+                            })
+
+                        })
+                    } else {
+                        makeFBResponse.loginResponse(senderId, function(res) {
+                            callback(null, res);
+                        })
+                    }
+                })
+            } else {
+                var response = `Please login first to continue.`;
+                sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                    makeFBResponse.loginResponse(senderId, function(res) {
+                            callback(null, res);
+                    })
+                })
+            }
         }
     },
     // After getting token this method called.
