@@ -172,7 +172,7 @@ module.exports = {
                                     var dt = moment(new Date(result.opened_at)).format('MMMM Do YYYY, h:mm:ss A');
                                     var active = result.active;
                                     var category = result.category;
-                                    category = category.charAt(0).toUpperCase() + string.slice(1);
+                                    category = category.charAt(0).toUpperCase() + category.slice(1);
                                     arr.push({
                                         "title": `Incident: ${id}`,
                                         "subtitle": `Category: ${category} \nDate: ${dt} \n${active ? "active.": "not active."}`,
@@ -249,7 +249,7 @@ module.exports = {
                                 var sysId = body.result[i].sys_id;
                                 var dt = moment(new Date(body.result[i].opened_at)).format('MMMM Do YYYY, h:mm:ss A');
                                 var category = body.result[i].category;
-                                category = category.charAt(0).toUpperCase() + string.slice(1);
+                                category = category.charAt(0).toUpperCase() + category.slice(1);
                                     arr.push({
                                         "title": `Incident: ${id}`,
                                         "subtitle": `Category: ${category} \nDate: ${dt} \n${active ? "active.": "not active."}`,
