@@ -155,7 +155,7 @@ module.exports = {
                                     var response = `Incident request was found. Below are the details.
                                                             Your ticket is ${body.result[0].active ? "active.": "not active."}`;
                                     sendFBResponse.sendResponse(senderId, response, function(err, body) {
-                                        makeFBResponse.getCardResponse(number, desc, sysId, function(res) {
+                                        makeFBResponse.getCardResponse(id, desc, sysId, function(res) {
                                             sendFBResponse.sendTemplate(senderId, res, function(err, body){
                                                 console.log("FB template message sent");
                                             }) 
