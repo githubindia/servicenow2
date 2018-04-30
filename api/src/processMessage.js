@@ -26,8 +26,13 @@ module.exports = (event) => {
     console.log('------------------Inside processMessage-------------------');
     console.log(JSON.stringify(event));
     const senderId = event.sender.id;
-    const message = event.message.text;
-
+    //const message = event.message.text;
+    var message;
+    if (event.message.quick_reply != undefined) {
+        message = event.message.quick_reply;
+    } else {
+        message = event.message.text;
+    }
     var apiaiSession = apiAiClient.textRequest(message, {sessionId: senderId});
     //console.log(JSON.stringify(apiaiSession));
     apiaiSession.on('response', (response) => {
