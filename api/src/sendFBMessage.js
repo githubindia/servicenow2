@@ -32,6 +32,7 @@ module.exports = {
         }, (err, res, body) => {
             if (!err) {
                 console.log('message sent!')
+                callback(null, body);
             } else {
                 console.error("Unable to send message:" + err);
             }
