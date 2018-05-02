@@ -81,7 +81,7 @@ module.exports = {
                                 // })
                                 arr.push({
                                         "title": `Incident: ${id}`,
-                                        "subtitle": `Description: ${desc} \nCategory: ${category} \nDate: ${dt}`,
+                                        "subtitle": `Category: ${category} \nDescription: ${desc}`,
                                         "buttons":[
                                             {  
                                                 "type":"web_url",
@@ -389,16 +389,15 @@ module.exports = {
                     })
                 })
             }
+        } else if (request.result.metadata.intentName == "thank_you") {
+
         } else if (request.result.metadata.intentName == "Default Fallback Intent") {
-            var response = `Sorry I didn't get that. Please choose from options below:`;
-            sendFBResponse.sendResponse(senderId, response, function(err, body) {
-                var res;
-                request.result.fulfillment.messages.forEach(function(element){
-                    if (element.type == 4) {
-                        res = element.payload.facebook;
-                    }
-                });
-                callback(null, res);
+            var res;
+            request.result.fulfillment.messages.forEach(function(element){
+                if (element.type == 4) {
+                    res = element.payload.facebook;
+                    callback(null, res);
+                }
             })
         }
     },
