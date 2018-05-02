@@ -175,7 +175,13 @@ module.exports = {
                                 if (body.error != undefined) {
                                     var response = `Record doesn't exist or you are not authorized to view status for incident number ${incNumber}.`;
                                     sendFBResponse.sendResponse(senderId, response, function(err, body) {
-                                        console.log(body);
+                                        var response;
+                                        request.result.fulfillment.messages.forEach(function(element){
+                                            if (element.type == 4){
+                                                response = element.payload.facebook;
+                                            }
+                                        });
+                                        callback(null, response);
                                     });
                                 } else {
                                     // body = JSON.parse(body);
