@@ -416,7 +416,12 @@ module.exports = {
             "senderId":psid,
             "token":token
         })
-        session = session.filter((v, i, a) => a.indexOf(v) === i);
+        //session = session.filter((v, i, a) => a.indexOf(v) === i);
+        session = session.filter((session, index, self) =>
+        index === self.findIndex((t) => (
+            t.senderId === thing.senderId && t.token === thing.token
+        )) 
+        )
         console.log(session);
         let serviceNowResponse;
         var userName;
