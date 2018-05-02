@@ -419,7 +419,7 @@ module.exports = {
         //session = session.filter((v, i, a) => a.indexOf(v) === i);
         session = session.filter((session, index, self) =>
         index === self.findIndex((t) => (
-            t.senderId === thing.senderId && t.token === thing.token
+            t.senderId === session.senderId && t.token === session.token
         )) 
         )
         console.log(session);
