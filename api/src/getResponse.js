@@ -61,7 +61,6 @@ module.exports = {
                     session.forEach(function(element){
                         if(element.senderId == senderId) {
                             serviceNow.logIncident(element.token, desc, function(err, body) {
-                                console.log(body);
                                 var arr = [];
                                 var id = body.result.number;
                                 var desc = body.result.short_description;
@@ -116,7 +115,7 @@ module.exports = {
                     var response = `Please login first to continue.`;
                     sendFBResponse.sendResponse(senderId, response, function(err, body) {
                         makeFBResponse.loginResponse(senderId, function(res) {
-                                callback(null, res);
+                            callback(null, res);
                         })
                     })
                 }
@@ -161,7 +160,6 @@ module.exports = {
             var token = session[0].token;
             console.log("---------------" + token);
             serviceNow.logIncident(token, desc, function(err, body) {
-                console.log(body);
                 var result = `Your incident has been created with the incident number ${body.result.number}.`
             })
             callback(null, result);
@@ -223,7 +221,6 @@ module.exports = {
                                     });
                                     makeFBResponse.getCorousalResponse(arr, function (res) {
                                         sendFBResponse.sendTemplate(senderId, res, function(body) {
-                                            console.log("response sent ----");
                                             var response;
                                             request.result.fulfillment.messages.forEach(function(element){
                                                 if (element.type == 4){
@@ -303,7 +300,6 @@ module.exports = {
                             }
                             makeFBResponse.getCorousalResponse(arr, function (res) {
                                 sendFBResponse.sendTemplate(senderId, res, function(body) {
-                                    console.log("response sent ----");
                                     makeFBResponse.getQuickReplyResponse(function(res) {
                                         console.log(res);
                                         sendFBResponse.sendTemplate(senderId, res, function (body) {
@@ -391,7 +387,7 @@ module.exports = {
             }
         } else if (request.result.metadata.intentName == "thank_you") {
             var response;
-            request.result.fulfillment.messages.forEach(function(element){
+            request.result.fulfillment.messages.forEach(function(element) {
                 if (element.type == 4){
                     response = element.payload.facebook;
                 }
@@ -427,7 +423,6 @@ module.exports = {
             t.senderId === session.senderId && t.token === session.token
         )) 
         )
-        console.log(session);
         let serviceNowResponse;
         var userName;
         //let serviceNowResponse = deasync(function(callback){
