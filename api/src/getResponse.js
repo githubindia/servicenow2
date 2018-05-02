@@ -412,11 +412,11 @@ module.exports = {
         console.log(request.session.passport.user.accessToken);
         var psid = request.session.senderId;
         var token = request.session.passport.user.accessToken;
-        session = session.filter((v, i, a) => a.indexOf(v) === i);
         global.session.push({
             "senderId":psid,
             "token":token
         })
+        session = session.filter((v, i, a) => a.indexOf(v) === i);
         let serviceNowResponse;
         var userName;
         //let serviceNowResponse = deasync(function(callback){
