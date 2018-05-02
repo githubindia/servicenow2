@@ -177,7 +177,7 @@ module.exports = {
                                     var response = `Record doesn't exist or you are not authorized to view status for incident number ${incNumber}.`;
                                     sendFBResponse.sendResponse(senderId, response, function(err, body) {
                                         var response;
-                                        request.result.fulfillment.messages.forEach(function(element){
+                                        request.result.fulfillment.messages.forEach(function(element) {
                                             if (element.type == 4){
                                                 response = element.payload.facebook;
                                             }
@@ -364,13 +364,13 @@ module.exports = {
                             });
                             makeFBResponse.getCorousalResponse(arr, function (res) {
                                 sendFBResponse.sendTemplate(senderId, res, function(body) {
-                                console.log("response sent ----");
-                                    makeFBResponse.getQuickReplyResponse(function(res) {
-                                        console.log(res);
-                                        sendFBResponse.sendTemplate(senderId, res, function (body) {
-                                            console.log("courousal sent with quick reply.");
-                                        })
-                                    })
+                                var response;
+                                request.result.fulfillment.messages.forEach(function(element){
+                                    if (element.type == 4){
+                                        response = element.payload.facebook;
+                                    }
+                                });
+                                callback(null, response);
                                 })
                             })
 
