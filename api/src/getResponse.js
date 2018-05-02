@@ -61,17 +61,46 @@ module.exports = {
                         if(element.senderId == senderId) {
                             serviceNow.logIncident(element.token, desc, function(err, body) {
                                 console.log(body);
+                                var arr = [];
                                 var id = body.result.number;
                                 var desc = body.result.short_description;
                                 var sysId = body.result.sys_id;
+                                // var sysId = body.result.sys_id;
+                                var dt = moment(new Date(body.result.opened_at)).format('MMMM Do YYYY, h:mm:ss A');
+                                var active = body.result.active;
+                                var category = body.result.category;
+                                category = category.charAt(0).toUpperCase() + category.slice(1);
                                 var response = `Your incident has been created.`;
-                                sendFBResponse.sendResponse(senderId, response, function(err, body) {
-                                    makeFBResponse.getCardResponse(id, desc, sysId, function(res) {
-                                        sendFBResponse.sendTemplate(senderId, res, function(err, body){
-                                            console.log("FB template message sent");
-                                        }) 
+                                // sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                                //     makeFBResponse.getCardResponse(id, desc, sysId, function(res) {
+                                //         sendFBResponse.sendTemplate(senderId, res, function(err, body){
+                                //             console.log("FB template message sent");
+                                //         }) 
+                                //     })
+                                // })
+                                arr.push({
+                                        "title": `Incident: ${id}`,
+                                        "subtitle": `Description: ${desc} \nCategory: ${category} \nDate: ${dt} \nStatus: ${active ? "Not resolved": "Resolved"}`,
+                                        "buttons":[
+                                            {  
+                                                "type":"web_url",
+                                                "url":`https://dev27552.service-now.com/nav_to.do?uri=/incident.do?sys_id=${sysId}`,
+                                                "title":"View",
+                                                "webview_height_ratio":"tall"
+                                            }
+                                        ]
+                                    });
+                                    makeFBResponse.getCorousalResponse(arr, function (res) {
+                                        sendFBResponse.sendTemplate(senderId, res, function(body) {
+                                        console.log("response sent ----");
+                                            makeFBResponse.getQuickReplyResponse(function(res) {
+                                                console.log(res);
+                                                sendFBResponse.sendTemplate(senderId, res, function (body) {
+                                                    console.log("courousal sent with quick reply.");
+                                                })
+                                            })
+                                        })
                                     })
-                                })
                                 
                                 //var result = `Your incident has been created. with the incident number ${body.result.number}.`
                                 
@@ -175,7 +204,7 @@ module.exports = {
                                     category = category.charAt(0).toUpperCase() + category.slice(1);
                                     arr.push({
                                         "title": `Incident: ${id}`,
-                                        "subtitle": `Category: ${category} \nDate: ${dt} \nStatus: ${active ? "Resolved": "Not resolved"}`,
+                                        "subtitle": `Category: ${category} \nDate: ${dt} \nStatus: ${active ? "Not resolved": "Resolved"}`,
                                         "buttons":[
                                             {  
                                                 "type":"web_url",
