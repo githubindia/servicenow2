@@ -6,7 +6,7 @@ var moment = require('moment');
 var serviceNow = require('./servicenow');
 var sendFBResponse = require('./sendFBMessage');
 var makeFBResponse = require('./makeResponse');
-var regExp = RegExp(/(inc|Inc|iNc|InC|inC|iNC|INc)\d{6}/);
+var regExp = RegExp(/(inc|Inc|iNc|InC|inC|iNC|INc)(\d{6}|\d{7})/);
 var regExp2 = RegExp(/\d{6}/);
 module.exports = {
     "makeResponse": function(senderId, request, callback) {
@@ -168,7 +168,7 @@ module.exports = {
             if(request.result.parameters.incidentNumber != "" && (regExp.test(request.result.parameters.incidentNumber) || regExp2.test(request.result.parameters.incidentNumber))) {
                 var incNumber = request.result.parameters.incidentNumber;
                 if (isNaN(incNumber)) {
-                    console.log("incident number is correct");
+                    incNumber = "INC" + incNumber.slice(1);
                 } else {
                     incNumber = "INC" + incNumber;
                 }
