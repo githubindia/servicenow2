@@ -92,11 +92,13 @@ module.exports = {
                                     });
                                     makeFBResponse.getCorousalResponse(arr, function (res) {
                                         sendFBResponse.sendTemplate(senderId, res, function(body) {
-                                            makeFBResponse.getQuickReplyResponse(quickReply1, quickReply2, function(res) {
-                                                sendFBResponse.sendTemplate(senderId, res, function (body) {
-                                                    console.log("courousal sent with quick reply.");
-                                                })
-                                            })
+                                            var response;
+                                            request.result.fulfillment.messages.forEach(function(element){
+                                                if (element.type == 4){
+                                                    response = element.payload.facebook;
+                                                }
+                                            });
+                                            callback(null, response);
                                         })
                                     })
                                 
