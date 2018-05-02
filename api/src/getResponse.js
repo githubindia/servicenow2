@@ -396,7 +396,7 @@ module.exports = {
                     response = element.payload.facebook;
                 }
             });
-                                            callback(null, response);
+            callback(null, response);
         } else if (request.result.metadata.intentName == "Default Fallback Intent") {
             var res;
             request.result.fulfillment.messages.forEach(function(element){
