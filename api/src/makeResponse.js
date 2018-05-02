@@ -98,8 +98,8 @@ module.exports = {
             "quick_replies": [
                 {
                     "content_type": "text",
-                    "title": "Raise Incident",
-                    "payload": "create_new_incident_request"
+                    "title": "Get Latest",
+                    "payload": "show_latest_incident"
                 },
                 {
                     "content_type": "text",

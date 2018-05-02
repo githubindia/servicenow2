@@ -390,7 +390,13 @@ module.exports = {
                 })
             }
         } else if (request.result.metadata.intentName == "thank_you") {
-
+            var response;
+            request.result.fulfillment.messages.forEach(function(element){
+                if (element.type == 4){
+                    response = element.payload.facebook;
+                }
+            });
+                                            callback(null, response);
         } else if (request.result.metadata.intentName == "Default Fallback Intent") {
             var res;
             request.result.fulfillment.messages.forEach(function(element){
