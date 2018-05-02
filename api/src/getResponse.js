@@ -80,7 +80,7 @@ module.exports = {
                                 // })
                                 arr.push({
                                         "title": `Incident: ${id}`,
-                                        "subtitle": `Description: ${desc} \nCategory: ${category} \nDate: ${dt} \nStatus: ${active ? "Not resolved": "Resolved"}`,
+                                        "subtitle": `Description: ${desc} \nCategory: ${category} \nDate: ${dt}`,
                                         "buttons":[
                                             {  
                                                 "type":"web_url",
@@ -92,9 +92,7 @@ module.exports = {
                                     });
                                     makeFBResponse.getCorousalResponse(arr, function (res) {
                                         sendFBResponse.sendTemplate(senderId, res, function(body) {
-                                        console.log("response sent ----");
-                                            makeFBResponse.getQuickReplyResponse(function(res) {
-                                                console.log(res);
+                                            makeFBResponse.getQuickReplyResponse(quickReply1, quickReply2, function(res) {
                                                 sendFBResponse.sendTemplate(senderId, res, function (body) {
                                                     console.log("courousal sent with quick reply.");
                                                 })
@@ -216,13 +214,14 @@ module.exports = {
                                     });
                                     makeFBResponse.getCorousalResponse(arr, function (res) {
                                         sendFBResponse.sendTemplate(senderId, res, function(body) {
-                                        console.log("response sent ----");
-                                            makeFBResponse.getQuickReplyResponse(function(res) {
-                                                console.log(res);
-                                                sendFBResponse.sendTemplate(senderId, res, function (body) {
-                                                    console.log("courousal sent with quick reply.");
-                                                })
-                                            })
+                                            console.log("response sent ----");
+                                            var response;
+                                            request.result.fulfillment.messages.forEach(function(element){
+                                                if (element.type == 4){
+                                                    response = element.payload.facebook;
+                                                }
+                                            });
+                                            callback(null, response);
                                         })
                                     })
 
