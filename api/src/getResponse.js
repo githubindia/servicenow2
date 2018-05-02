@@ -398,7 +398,7 @@ module.exports = {
                         res = element.payload.facebook;
                     }
                 });
-                callback(null, response);
+                callback(null, res);
             })
         }
     },
