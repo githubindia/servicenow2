@@ -103,12 +103,17 @@ module.exports = {
                 },
                 {
                     "content_type": "text",
-                    "title": "View Incident",
-                    "payload": "show_incident_options_to_choose"
+                    "title": "Get By Id",
+                    "payload": "view_incident_by_number"
                 },
                 {
                     "content_type": "text",
-                    "title": "Thank you",
+                    "title": "Create Incident",
+                    "payload": "create_new_incident_request"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Thank You",
                     "payload": "thank_you_intent"
                 }
             ]
