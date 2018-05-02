@@ -245,8 +245,9 @@ module.exports = {
                             })
                         }
                         
+                    } else {
+                        incNumber = "INC" + incNumber;
                     }
-                    incNumber = "INC" + incNumber;
                 }
                 if(session.length != 0) {
                     session.forEach(function(element){
