@@ -165,7 +165,7 @@ module.exports = {
             })
             callback(null, result);
         } else if (request.result.metadata.intentName == "incident_by_number") {
-            if(request.result.parameters.incidentNumber != "" && regExp.test(request.result.parameters.incidentNumber) && regExp2.test(request.result.parameters.incidentNumber)) {
+            if(request.result.parameters.incidentNumber != "" && (regExp.test(request.result.parameters.incidentNumber) || regExp2.test(request.result.parameters.incidentNumber))) {
                 var incNumber = request.result.parameters.incidentNumber;
                 if (isNaN(incNumber)) {
                     console.log("incident number is correct");
