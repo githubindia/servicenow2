@@ -394,7 +394,7 @@ module.exports = {
             sendFBResponse.sendResponse(senderId, response, function(err, body) {
                 var res;
                 request.result.fulfillment.messages.forEach(function(element){
-                    if (element.type == 4){
+                    if (element.type == 4) {
                         res = element.payload.facebook;
                     }
                 });
@@ -412,6 +412,7 @@ module.exports = {
         console.log(request.session.passport.user.accessToken);
         var psid = request.session.senderId;
         var token = request.session.passport.user.accessToken;
+        session = session.filter((v, i, a) => a.indexOf(v) === i);
         global.session.push({
             "senderId":psid,
             "token":token
