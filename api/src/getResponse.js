@@ -19,7 +19,8 @@ module.exports = {
                             var userName = body.result[0].sys_updated_by;
                             var name = " ";
                             var arr = userName.split('.');
-                            arr.forEach(function(element){
+                            arr.forEach(function(element) {
+                                element = element.charAt(0).toUpperCase() + element.slice(1);
                                 name = name + " " + element;
                             })
                             var response = `Hello there!${name}, Welcome to Service Desk.`;
@@ -285,6 +286,7 @@ module.exports = {
                                 var sysId = body.result[i].sys_id;
                                 var dt = moment(new Date(body.result[i].opened_at)).format('MMMM Do YYYY, h:mm:ss A');
                                 var category = body.result[i].category;
+                                var active = body.result[i].active;
                                 category = category.charAt(0).toUpperCase() + category.slice(1);
                                     arr.push({
                                         "title": `Incident: ${id}`,
@@ -436,10 +438,11 @@ module.exports = {
             });
             var name = " ";
             var arr = userName.split('.');
-            arr.forEach(function(element){
+            arr.forEach(function(element) {
+                element = element.charAt(0).toUpperCase() + element.slice(1);
                 name = name + " " + element;
             })
-            var result = `Hello! ${name}. Here you can create or view all your requests.`
+            var result = `Hello!${name}. Here you can create or view all your requests.`
             sendFBResponse.sendResponse(psid, result, function(err, body) {
                 makeFBResponse.genericResponse(function(res) {
                     sendFBResponse.sendTemplate(psid, res, function(callback){
