@@ -417,6 +417,7 @@ module.exports = {
             "token":token
         })
         session = session.filter((v, i, a) => a.indexOf(v) === i);
+        console.log(session);
         let serviceNowResponse;
         var userName;
         //let serviceNowResponse = deasync(function(callback){
