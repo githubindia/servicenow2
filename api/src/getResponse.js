@@ -7,6 +7,7 @@ var serviceNow = require('./servicenow');
 var sendFBResponse = require('./sendFBMessage');
 var makeFBResponse = require('./makeResponse');
 var regExp = RegExp(/(inc|Inc|iNc|InC|inC|iNC|INc)\d{6}/);
+var regExp2 = RegEXp(/\d{6}/);
 module.exports = {
     "makeResponse": function(senderId, request, callback) {
         console.log("----------------inside makeResponses");
@@ -164,8 +165,13 @@ module.exports = {
             })
             callback(null, result);
         } else if (request.result.metadata.intentName == "incident_by_number") {
-            if(request.result.parameters.incidentNumber != "" && regExp.test(request.result.parameters.incidentNumber)) {
+            if(request.result.parameters.incidentNumber != "" && regExp.test(request.result.parameters.incidentNumber) && regExp2.test(request.result.parameters.incidentNumber)) {
                 var incNumber = request.result.parameters.incidentNumber;
+                if (isNaN(incNumber)) {
+                    console.log("incident number is correct");
+                } else {
+                    incNumber = "INC" + incNumber;
+                }
                 if(session.length != 0) {
                     session.forEach(function(element){
                         if(element.senderId == senderId) {
