@@ -7,7 +7,7 @@ var serviceNow = require('./servicenow');
 var sendFBResponse = require('./sendFBMessage');
 var makeFBResponse = require('./makeResponse');
 var regExp = RegExp(/(inc|Inc|iNc|InC|inC|iNC|INc)(\d{6}|\d{7})/);
-var regExp2 = RegExp(/\d{6}|\d{7}/);
+var regExp2 = RegExp(/\d{6}|\d{7}|\d+/);
 module.exports = {
     "makeResponse": function(senderId, request, callback) {
         console.log("----------------inside makeResponses");
