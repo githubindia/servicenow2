@@ -246,7 +246,6 @@ module.exports = {
                     //         })
                     //     }
                     incNumber = "INC" + incNumber;
-                    }
                     
                 }
                 if(session.length != 0) {
@@ -351,7 +350,6 @@ module.exports = {
                     console.log(body);
                 });
             }
-            
         } else if (request.result.metadata.intentName == "last_five_incidents") {
             if(session.length != 0) {
                 session.forEach(function(element){
