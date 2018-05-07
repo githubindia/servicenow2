@@ -12,6 +12,7 @@ module.exports = {
         body: 
         { short_description: desc,
           // caller_id: 'Shubham Gupta',
+          category:"Laptop",
           urgency: 2,
           comments: 'Chatbot Testing' },
         json: true };
