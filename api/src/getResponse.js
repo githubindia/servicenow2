@@ -168,7 +168,7 @@ module.exports = {
             if(request.result.parameters.incidentNumber != "" && (regExp.test(request.result.parameters.incidentNumber) || regExp2.test(request.result.parameters.incidentNumber))) {
                 var incNumber = request.result.parameters.incidentNumber;
                 if (isNaN(incNumber)) {
-                    incNumber = "INC" + incNumber.slice(1);
+                    incNumber = "INC" + incNumber.slice(2);
                     console.log(incNumber);
                 } else {
                     // var incInNumber = Number(String(incNumber).length);
@@ -477,6 +477,14 @@ module.exports = {
         } else if (request.result.metadata.intentName == "Default Fallback Intent") {
             var res;
             request.result.fulfillment.messages.forEach(function(element){
+                if (element.type == 4) {
+                    res = element.payload.facebook;
+                    callback(null, res);
+                }
+            })
+        } else if (request.reault.metadata.intentName == "service_request_initialized") {
+            var res;
+            request.result.fulfillment.messages.forEach(function(element) {
                 if (element.type == 4) {
                     res = element.payload.facebook;
                     callback(null, res);
