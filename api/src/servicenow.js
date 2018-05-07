@@ -11,7 +11,7 @@ module.exports = {
           authorization: `Bearer ${token}` },
         body: 
         { short_description: desc,
-          caller_id: 'Shubham Gupta',
+          // caller_id: 'Shubham Gupta',
           urgency: 2,
           comments: 'Chatbot Testing' },
         json: true };
