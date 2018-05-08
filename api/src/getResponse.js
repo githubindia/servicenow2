@@ -490,7 +490,7 @@ module.exports = {
                     callback(null, res);
                 }
             })
-        } else if (request.reault.metadata.intentName == "Create_service_requests_show _category") {
+        } else if (request.result.metadata.intentName == "Create_service_requests_show _category") {
             var res;
             request.result.fulfillment.messages.forEach(function(element) {
                 if (element.type == 4) {
