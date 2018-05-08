@@ -491,7 +491,13 @@ module.exports = {
                 }
             })
         } else if (request.reault.metadata.intentName == "Create_service_requests_show _category") {
-            
+            var res;
+            request.result.fulfillment.messages.forEach(function(element) {
+                if (element.type == 4) {
+                    res = element.payload.facebook;
+                    callback(null, res);
+                }
+            })
         }
     },
     // After getting token this method called.
