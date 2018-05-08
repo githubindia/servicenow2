@@ -498,6 +498,22 @@ module.exports = {
                     callback(null, res);
                 }
             })
+        } else if (request.result.metadata.intentName == "software_services") {
+            var res;
+            request.result.fulfillment.messages.forEach(function(element) {
+                if (element.type == 4) {
+                    res = element.payload.facebook;
+                    callback(null, res);
+                }
+            })
+        } else if (request.result.metadata.intentName == "hardware_services") {
+            var res;
+            request.result.fulfillment.messages.forEach(function(element) {
+                if (element.type == 4) {
+                    res = element.payload.facebook;
+                    callback(null, res);
+                }
+            })
         }
     },
     // After getting token this method called.
