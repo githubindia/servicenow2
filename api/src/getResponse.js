@@ -536,7 +536,7 @@ module.exports = {
                                             "buttons":[
                                                 {  
                                                     "type":"web_url",
-                                                    "url":`https://dev27552.service-now.com/nav_to.do?uri=/sc_request.do?sys_id=${sysId}`,
+                                                    "url":`https://dev27552.service-now.com/nav_to.do?uri=/sc_request.do?sys_id=${body2.result.request_id}`,
                                                     "title":"View",
                                                     "webview_height_ratio":"tall"
                                                 }
