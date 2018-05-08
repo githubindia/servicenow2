@@ -526,6 +526,7 @@ module.exports = {
                                 if(body.error == undefined) {
                                     serviceNow.checkoutRequest(element.token, function(err, body2){
                                         console.log(body2);
+                                        body2 = JSON.parse(body2);
                                         reqNumber = body2.result.request_number;
                                     })
                                 }
