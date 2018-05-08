@@ -6,6 +6,7 @@ var moment = require('moment');
 var serviceNow = require('./servicenow');
 var sendFBResponse = require('./sendFBMessage');
 var makeFBResponse = require('./makeResponse');
+var processDfRequest = require('./processDfRequest');
 var regExp = RegExp(/(inc|Inc|iNc|InC|inC|iNC|INc)(\d{6}|\d{7})/);
 var regExp2 = RegExp(/\d{6}|\d{7}|\d+/);
 module.exports = {
@@ -495,58 +496,9 @@ module.exports = {
             var sysId = 'eb4e17730ff9130076fccfdce1050ea5';
             if(request.result.parameters.description != "") {
                 var desc = request.result.parameters.description;
-                if(session.length != 0) {
-                    session.forEach(function(element){
-                        if(element.senderId == senderId) {
-                            serviceNow.softwareInstallRequest(sysId, element.token, function(err, body) {
-                                var reqNumber;
-                                if(body.error == undefined) {
-                                    serviceNow.checkoutRequest(element.token, function(err, body2){
-                                        console.log(body2);
-                                        body2 = JSON.parse(body2);
-                                        reqNumber = body2.result.request_number;
-                                        var arr = [];
-                                        var response = `Your request has been created.`;
-                                        arr.push({
-                                            "title": `Request number: ${reqNumber}`,
-                                            "subtitle": `Description: ${desc}`,
-                                            "buttons":[
-                                                {  
-                                                    "type":"web_url",
-                                                    "url":`https://dev27552.service-now.com/nav_to.do?uri=/sc_request.do?sys_id=${body2.result.request_id}`,
-                                                    "title":"View",
-                                                    "webview_height_ratio":"tall"
-                                                }
-                                            ]
-                                        });
-                                        makeFBResponse.getCorousalResponse(arr, function (res) {
-                                            sendFBResponse.sendTemplate(senderId, res, function(body) {
-                                                var response;
-                                                request.result.fulfillment.messages.forEach(function(element){
-                                                    if (element.type == 4){
-                                                        response = element.payload.facebook;
-                                                    }
-                                                });
-                                                callback(null, response);
-                                            })
-                                        })
-                                    })
-                                }
-                            })
-                        } else {
-                            makeFBResponse.loginResponse(senderId, function(res) {
-                                callback(null, res);
-                            })
-                        }
-                    })
-                } else {
-                    var response = `Please login first to continue.`;
-                    sendFBResponse.sendResponse(senderId, response, function(err, body) {
-                        makeFBResponse.loginResponse(senderId, function(res) {
-                            callback(null, res);
-                        })
-                    })
-                }
+                processDfRequest.logRequest(senderId, sysId, desc, function(err, res){
+                    callback(null, res);
+                })
             } else {
                 var response = "Please enter the description to create request."
                 sendFBResponse.sendResponse(senderId, response, function(err, body){
