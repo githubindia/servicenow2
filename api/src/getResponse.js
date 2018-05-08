@@ -482,7 +482,7 @@ module.exports = {
                     callback(null, res);
                 }
             })
-        } else if (request.reault.metadata.intentName == "service_request_initialized") {
+        } else if (request.result.metadata.intentName == "service_request_initialized") {
             var res;
             request.result.fulfillment.messages.forEach(function(element) {
                 if (element.type == 4) {
@@ -490,6 +490,8 @@ module.exports = {
                     callback(null, res);
                 }
             })
+        } else if (request.reault.metadata.intentName == "Create_service_requests_show _category") {
+            
         }
     },
     // After getting token this method called.

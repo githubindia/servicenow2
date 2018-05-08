@@ -4,7 +4,7 @@ module.exports = {
     'logIncident' : function(token, desc, callback){
  
         //console.log("The Final Message Utterance to send POST as Query to Service Now");
-       var options = { method: 'POST',
+      var options = { method: 'POST',
         url: 'https://dev27552.service-now.com/api/now/table/incident',
         headers: 
         { 'content-type': 'application/json',
