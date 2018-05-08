@@ -102,7 +102,7 @@ module.exports = {
         callback(null, body)
       });
     },
-    "checkoutRequest": function (token) {
+    "checkoutRequest": function (token, callback) {
       var options = {
         method: 'POST',
         url: 'https://dev27552.service-now.com/api/sn_sc/servicecatalog/cart/checkout',

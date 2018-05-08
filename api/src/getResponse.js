@@ -570,7 +570,7 @@ module.exports = {
                     })
                 }
             } else {
-                var response = "Please enter the description to create incident."
+                var response = "Please enter the description to create request."
                 sendFBResponse.sendResponse(senderId, response, function(err, body){
                     console.log("plain FB message sent");
                 });
