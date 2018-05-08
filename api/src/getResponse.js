@@ -496,7 +496,7 @@ module.exports = {
             var sysId = 'eb4e17730ff9130076fccfdce1050ea5';
             if(request.result.parameters.description != "") {
                 var desc = request.result.parameters.description;
-                processDfRequest.logRequest(senderId, sysId, desc, function(err, res){
+                processDfRequest.logRequest(request, senderId, sysId, desc, function(err, res){
                     callback(null, res);
                 })
             } else {

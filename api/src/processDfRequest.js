@@ -3,7 +3,7 @@ var sendFBResponse = require('./sendFBMessage');
 var makeFBResponse = require('./makeResponse');
 
 module.exports = {
-    "logRequest": function (senderId, sysId, desc, callback) {
+    "logRequest": function (request, senderId, sysId, desc, callback) {
         if(session.length != 0) {
             session.forEach(function(element){
                 if(element.senderId == senderId) {
@@ -30,13 +30,9 @@ module.exports = {
                                 });
                                 makeFBResponse.getCorousalResponse(arr, function (res) {
                                     sendFBResponse.sendTemplate(senderId, res, function(body) {
-                                        var response;
-                                        request.result.fulfillment.messages.forEach(function(element){
-                                            if (element.type == 4){
-                                                response = element.payload.facebook;
-                                                callback(null, response);
-                                            }
-                                        });
+                                        makeFBResponse.getDfResponse(request, function(err, res){
+                                            callback(null, res);
+                                        })
                                     })
                                 })
                             })
