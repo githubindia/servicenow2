@@ -523,7 +523,7 @@ module.exports = {
                         if(element.senderId == senderId) {
                             serviceNow.softwareInstallRequest(sysId, element.token, function(err, body) {
                                 var reqNumber;
-                                if(body.error != undefined) {
+                                if(body.error != 'undefined') {
                                     serviceNow.checkoutRequest(token, function(err, body2){
                                         console.log(body2);
                                         reqNumber = body2.result.request_number;
