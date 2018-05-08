@@ -85,9 +85,9 @@ module.exports = {
         callback(null, body)
       });
     },
-    "softwareInstallRequest": function (token, callback) {
+    "softwareInstallRequest": function (sysId, token, callback) {
       var options = { method: 'POST',
-      url: `https://dev27552.service-now.com/api/sn_sc/v1/servicecatalog/items/${sysId}/add_to_cart`eb4e17730ff9130076fccfdce1050ea5,
+      url: `https://dev27552.service-now.com/api/sn_sc/v1/servicecatalog/items/${sysId}/add_to_cart`,
       headers: 
       { 'cache-control': 'no-cache',
         'content-type': 'application/json',
