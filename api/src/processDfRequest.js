@@ -34,9 +34,9 @@ module.exports = {
                                         request.result.fulfillment.messages.forEach(function(element){
                                             if (element.type == 4){
                                                 response = element.payload.facebook;
+                                                callback(null, response);
                                             }
                                         });
-                                        callback(null, response);
                                     })
                                 })
                             })
