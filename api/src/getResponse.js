@@ -507,12 +507,8 @@ module.exports = {
                 }
             })
         } else if (request.result.metadata.intentName == "hardware_services") {
-            var res;
-            request.result.fulfillment.messages.forEach(function(element) {
-                if (element.type == 4) {
-                    res = element.payload.facebook;
-                    callback(null, res);
-                }
+            makeResponse.getDfResponse(request, function(res){
+                callback(null, res);
             })
         } else if (request.result.metadata.intentName == "software_install") {
             var sysId = 'eb4e17730ff9130076fccfdce1050ea5';

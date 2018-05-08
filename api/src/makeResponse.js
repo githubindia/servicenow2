@@ -119,5 +119,13 @@ module.exports = {
             ]
         }
         callback(response);
+    },
+    "getDfResponse" : function (request, callback) {
+        request.result.fulfillment.messages.forEach(function(element) {
+            if (element.type == 4) {
+                var res = element.payload.facebook;
+                callback(null, res);
+            }
+        })
     }
 }
