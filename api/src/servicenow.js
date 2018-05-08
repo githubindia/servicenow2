@@ -117,7 +117,7 @@ module.exports = {
         callback(null, body)
       });
     },
-    "getCatalogItems": function() {
+    "getCatalogItems": function(callback) {
       var options = { 
         method: 'GET',
         url: 'https://dev27552.service-now.com/api/sn_sc/servicecatalog/items',
