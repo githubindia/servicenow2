@@ -507,7 +507,7 @@ module.exports = {
                 }
             })
         } else if (request.result.metadata.intentName == "hardware_services") {
-            makeResponse.getDfResponse(request, function(res){
+            makeFBResponse.getDfResponse(request, function(res){
                 callback(null, res);
             })
         } else if (request.result.metadata.intentName == "software_install") {
