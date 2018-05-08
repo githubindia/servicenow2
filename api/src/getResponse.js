@@ -492,7 +492,7 @@ module.exports = {
             makeFBResponse.getDfResponse(request, function(err, res){
                 callback(null, res);
             })
-        } else if (request.result.parameters.software_request != "" && request.result.metadata.intentName == "sub_software_services") {
+        } else if (request.result.parameters.software_request != "" && (request.result.metadata.intentName == "sub_software_services" || request.result.metadata.intentName == "sub_hardware_services")) {
             serviceNow.getCatalogItems(function(err, body){
                 body = JSON.parse(body);
                 body.result.forEach(function(element){
