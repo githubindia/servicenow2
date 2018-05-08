@@ -116,6 +116,22 @@ module.exports = {
         if (error) throw new Error(error);
         callback(null, body)
       });
+    },
+    "getCatalogItems": function() {
+      var options = { 
+        method: 'GET',
+        url: 'https://dev27552.service-now.com/api/sn_sc/servicecatalog/items',
+        qs: { sysparm_limit: '200' },
+        headers: {
+          'postman-token': 'ba4a3db1-08a8-e636-51d2-653e19157bd1',
+          'cache-control': 'no-cache',
+          authorization: 'Basic YWRtaW46SW5nb2xlc2lyQDE5OTU=' 
+        } 
+      };
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        callback(null, body)
+      });
     }
 
 }
