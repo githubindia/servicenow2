@@ -528,33 +528,33 @@ module.exports = {
                                         console.log(body2);
                                         body2 = JSON.parse(body2);
                                         reqNumber = body2.result.request_number;
+                                        var arr = [];
+                                        var response = `Your request has been created.`;
+                                        arr.push({
+                                            "title": `Request number: ${reqNumber}`,
+                                            "subtitle": `Description: ${desc}`,
+                                            "buttons":[
+                                                {  
+                                                    "type":"web_url",
+                                                    "url":`https://dev27552.service-now.com/nav_to.do?uri=/sc_request.do?sys_id=${sysId}`,
+                                                    "title":"View",
+                                                    "webview_height_ratio":"tall"
+                                                }
+                                            ]
+                                        });
+                                        makeFBResponse.getCorousalResponse(arr, function (res) {
+                                            sendFBResponse.sendTemplate(senderId, res, function(body) {
+                                                var response;
+                                                request.result.fulfillment.messages.forEach(function(element){
+                                                    if (element.type == 4){
+                                                        response = element.payload.facebook;
+                                                    }
+                                                });
+                                                callback(null, response);
+                                            })
+                                        })
                                     })
                                 }
-                                var arr = [];
-                                var response = `Your request has been created.`;
-                                arr.push({
-                                    "title": `Request number: ${reqNumber}`,
-                                    "subtitle": `Description: ${desc}`,
-                                    "buttons":[
-                                        {  
-                                            "type":"web_url",
-                                            "url":`https://dev27552.service-now.com/nav_to.do?uri=/sc_request.do?sys_id=${sysId}`,
-                                            "title":"View",
-                                            "webview_height_ratio":"tall"
-                                        }
-                                    ]
-                                });
-                                makeFBResponse.getCorousalResponse(arr, function (res) {
-                                    sendFBResponse.sendTemplate(senderId, res, function(body) {
-                                        var response;
-                                        request.result.fulfillment.messages.forEach(function(element){
-                                            if (element.type == 4){
-                                                response = element.payload.facebook;
-                                            }
-                                        });
-                                        callback(null, response);
-                                    })
-                                })
                             })
                         } else {
                             makeFBResponse.loginResponse(senderId, function(res) {
