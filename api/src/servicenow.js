@@ -84,6 +84,38 @@ module.exports = {
         if (error) throw new Error(error);
         callback(null, body)
       });
+    },
+    "softwareInstallRequest": function (token, callback) {
+      var options = { method: 'POST',
+      url: `https://dev27552.service-now.com/api/sn_sc/v1/servicecatalog/items/${sysId}/add_to_cart`eb4e17730ff9130076fccfdce1050ea5,
+      headers: 
+      { 'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        authorization: `Bearer ${token}` },
+      body: 
+      { sysparm_quantity: 1,
+        short_description: 'this was updated with python' },
+      json: true };
+
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        callback(null, body)
+      });
+    },
+    "checkoutRequest": function (token) {
+      var options = {
+        method: 'POST',
+        url: 'https://dev27552.service-now.com/api/sn_sc/servicecatalog/cart/checkout',
+        headers: { 
+          'cache-control': 'no-cache',
+          'content-type': 'application/json',
+          authorization: `Bearer ${token}` 
+        } 
+      };
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        callback(null, body)
+      });
     }
 
 }
