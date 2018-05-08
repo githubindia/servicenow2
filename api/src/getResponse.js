@@ -494,18 +494,9 @@ module.exports = {
             })
         } else if (request.result.metadata.intentName == "software_install") {
             var sysId = 'eb4e17730ff9130076fccfdce1050ea5';
-            if(request.result.parameters.description != "") {
-                var desc = request.result.parameters.description;
-                processDfRequest.logRequest(request, senderId, sysId, desc, function(err, res){
-                    callback(null, res);
-                })
-            } else {
-                var response = "Please enter the description to create request."
-                sendFBResponse.sendResponse(senderId, response, function(err, body){
-                    console.log("plain FB message sent");
-                });
-            }
-            callback(null, response);
+            processDfRequest.logRequest(request, senderId, sysId, function(err, res){
+                callback(null, res);
+            })
         }
     },
     // After getting token this method called.
