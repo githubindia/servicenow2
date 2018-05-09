@@ -61,7 +61,7 @@ module.exports = {
             });
         }
     },
-    "showLatest": function (callback) {
+    "showLatest": function (request, senderId, callback) {
         if(session.length != 0) {
             session.forEach(function(element){
                 if(element.senderId == senderId) {

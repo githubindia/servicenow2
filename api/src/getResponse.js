@@ -406,7 +406,7 @@ module.exports = {
                 })
             }
         } else if (request.result.metadata.intentName == "show_incident_view_options" || request.result.metadata.intentName == "show_requests_view_options") {
-            makeFBResponse.getDfResponse(request, function(err, res){
+            makeFBResponse.getDfResponse(request, senderId, function(err, res){
                 callback(null, res);
             })
         } else if (request.result.metadata.intentName == "latest_incident" || request.result.metadata.intentName == "latest_request") {
