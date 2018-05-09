@@ -352,7 +352,7 @@ module.exports = {
                 });
             }
         } else if (request.result.metadata.intentName == "last_five_incidents" || request.result.metadata.intentName == "last_five_requests") {
-            makeFBResponse.showLastFive(request, senderId, function(err, res){
+            processDfRequest.showLastFive(request, senderId, function(err, res){
                 callback(null, res);
             })
         } else if (request.result.metadata.intentName == "show_incident_view_options" || request.result.metadata.intentName == "show_requests_view_options") {
