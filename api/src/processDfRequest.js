@@ -177,7 +177,7 @@ module.exports = {
                             var length = body.records.length;
                             for (i = length - 1; i >= length - 5; i--) {
                                 var id = body.records[i].number;
-                                var sysId = body.result[i].sys_id;
+                                var sysId = body.records[i].sys_id;
                                 var dt = moment(new Date(body.records[i].opened_at)).format('MMMM Do YYYY, h:mm:ss A');
                                 var approval = body.records[i].approval;
                                     arr.push({
