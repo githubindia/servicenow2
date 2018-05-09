@@ -300,7 +300,7 @@ module.exports = {
         var requestNumber = request.result.parameters.requestNumber;
         if( requestNumber != "" && (regExp.test(requestNumber) || regExp2.test(requestNumber))) {
             var reqNumber = request.result.parameters.requestNumber;
-            if (isNaN(incNumber)) {
+            if (isNaN(reqNumber)) {
                 reqNumber = "REQ" + reqNumber.slice(2);
             } else {
                 reqNumber = "REQ" + reqNumber; 
