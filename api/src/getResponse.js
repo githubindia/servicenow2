@@ -168,7 +168,7 @@ module.exports = {
                 callback(null, res);
             })
         } else if (request.result.metadata.intentName == "request_by_number") {
-            processDfRequest.getIncidentById(request, senderId, function (err, res) {
+            processDfRequest.getRequestById(request, senderId, function (err, res) {
                 callback(null, res);
             })
         } else if (request.result.metadata.intentName == "last_five_incidents" || request.result.metadata.intentName == "last_five_requests") {

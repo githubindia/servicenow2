@@ -297,13 +297,13 @@ module.exports = {
         }
     },
     "getRequestById": function (request, senderId, callback) {
-        var requestNumber = request.result.parameters.incidentNumber;
+        var requestNumber = request.result.parameters.requestNumber;
         if( requestNumber != "" && (regExp.test(requestNumber) || regExp2.test(requestNumber))) {
             var reqNumber = request.result.parameters.requestNumber;
             if (isNaN(incNumber)) {
-                reqNumber = "REQ" + incNumber.slice(2);
+                reqNumber = "REQ" + reqNumber.slice(2);
             } else {
-                reqNumber = "REQ" + incNumber; 
+                reqNumber = "REQ" + reqNumber; 
             }
             if(session.length != 0) {
                 session.forEach(function(element){
