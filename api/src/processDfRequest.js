@@ -2,7 +2,7 @@ var serviceNow = require('./servicenow');
 var sendFBResponse = require('./sendFBMessage');
 var makeFBResponse = require('./makeResponse');
 var moment = require('moment');
-var regExp = RegExp(/((inc|Inc|iNc|InC|inC|iNC|INc)(\d{7}|\d{6}))|((req|Req|rEq|ReQ|reQ|rEQ|REq)(\d{7}|\d{6}))/);
+var regExp = RegExp(/((inc|Inc|iNc|InC|inC|iNC|INc|INC)(\d{7}|\d{6}))|((req|Req|rEq|ReQ|reQ|rEQ|REq|REQ)(\d{7}|\d{6}))/);
 var regExp2 = RegExp(/\d{6}|\d{7}|\d+/);
 
 module.exports = {
