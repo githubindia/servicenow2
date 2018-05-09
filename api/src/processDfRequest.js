@@ -163,21 +163,21 @@ module.exports = {
                                     var category = element.category;
                                     var active = element.active;
                                     category = category.charAt(0).toUpperCase() + category.slice(1);
-                                        arr.push({
-                                            "title": `Incident: ${id}`,
-                                            "subtitle": `Category: ${category} \nDate: ${dt} \nStatus: ${active ? "Not resolved": "Resolved"}`,
-                                            "buttons":[
-                                                {  
-                                                    "type":"web_url",
-                                                    "url":`https://dev27552.service-now.com/nav_to.do?uri=/incident.do?sys_id=${sysId}`,
-                                                    "title":"View",
-                                                    "webview_height_ratio":"tall"
-                                                }
-                                            ]
-                                        });
-                                    module.exports.sendAllResponse(request, arr, senderId, function(err, res){
-                                        callback(null, res);
-                                    })
+                                    arr.push({
+                                        "title": `Incident: ${id}`,
+                                        "subtitle": `Category: ${category} \nDate: ${dt} \nStatus: ${active ? "Not resolved": "Resolved"}`,
+                                        "buttons":[
+                                            {  
+                                                "type":"web_url",
+                                                "url":`https://dev27552.service-now.com/nav_to.do?uri=/incident.do?sys_id=${sysId}`,
+                                                "title":"View",
+                                                "webview_height_ratio":"tall"
+                                            }
+                                        ]
+                                    });
+                                })
+                                module.exports.sendAllResponse(request, arr, senderId, function(err, res){
+                                    callback(null, res);
                                 })
                             } else {
                                 for (i = length - 1; i >= length - 5; i--) {
@@ -224,21 +224,21 @@ module.exports = {
                                     var sysId = element.sys_id;
                                     var dt = moment(new Date(element.opened_at)).format('MMMM Do YYYY, h:mm:ss A');
                                     var approval = element.approval;
-                                        arr.push({
-                                            "title": `Request Number: ${id}`,
-                                            "subtitle": `Approval: ${approval} \nDate: ${dt}`,
-                                            "buttons":[
-                                                {  
-                                                    "type":"web_url",
-                                                    "url":`https://dev27552.service-now.com/nav_to.do?uri=/incident.do?sys_id=${sysId}`,
-                                                    "title":"View",
-                                                    "webview_height_ratio":"tall"
-                                                }
-                                            ]
-                                        });
-                                    module.exports.sendAllResponse(request, arr, senderId, function(err, res){
-                                        callback(null, res);
-                                    })
+                                    arr.push({
+                                        "title": `Request Number: ${id}`,
+                                        "subtitle": `Approval: ${approval} \nDate: ${dt}`,
+                                        "buttons":[
+                                            {  
+                                                "type":"web_url",
+                                                "url":`https://dev27552.service-now.com/nav_to.do?uri=/incident.do?sys_id=${sysId}`,
+                                                "title":"View",
+                                                "webview_height_ratio":"tall"
+                                            }
+                                        ]
+                                    });
+                                })
+                                module.exports.sendAllResponse(request, arr, senderId, function(err, res){
+                                    callback(null, res);
                                 })
                             } else {
                                 for (i = length - 1; i >= length - 5; i--) {
