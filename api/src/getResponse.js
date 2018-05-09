@@ -351,60 +351,10 @@ module.exports = {
                     console.log(body);
                 });
             }
-        } else if (request.result.metadata.intentName == "last_five_incidents") {
-            if(session.length != 0) {
-                session.forEach(function(element){
-                    if(element.senderId == senderId) {
-                        serviceNow.getRecords(element.token, function(err, body) {
-                            body = JSON.parse(body);
-                            var arr = [];
-                            var length = body.result.length;
-                            for (i = length - 1; i >= length - 5; i--) {
-                                var id = body.result[i].number;
-                                var desc = body.result[i].short_description;
-                                var sysId = body.result[i].sys_id;
-                                var dt = moment(new Date(body.result[i].opened_at)).format('MMMM Do YYYY, h:mm:ss A');
-                                var category = body.result[i].category;
-                                var active = body.result[i].active;
-                                category = category.charAt(0).toUpperCase() + category.slice(1);
-                                    arr.push({
-                                        "title": `Incident: ${id}`,
-                                        "subtitle": `Category: ${category} \nDate: ${dt} \nStatus: ${active ? "Not resolved": "Resolved"}`,
-                                        "buttons":[
-                                            {  
-                                                "type":"web_url",
-                                                "url":`https://dev27552.service-now.com/nav_to.do?uri=/incident.do?sys_id=${sysId}`,
-                                                "title":"View",
-                                                "webview_height_ratio":"tall"
-                                            }
-                                        ]
-                                    });
-                            }
-                            makeFBResponse.getCorousalResponse(arr, function (res) {
-                                sendFBResponse.sendTemplate(senderId, res, function(body) {
-                                    makeFBResponse.getQuickReplyResponse(function(res) {
-                                        console.log(res);
-                                        sendFBResponse.sendTemplate(senderId, res, function (body) {
-                                            console.log("courousal sent with quick reply.");
-                                        })
-                                    })
-                                })
-                            })
-                        })
-                    } else {
-                        makeFBResponse.loginResponse(senderId, function(res) {
-                            callback(null, res);
-                        })
-                    }
-                })
-            } else {
-                var response = `Please login first to continue.`;
-                sendFBResponse.sendResponse(senderId, response, function(err, body) {
-                    makeFBResponse.loginResponse(senderId, function(res) {
-                            callback(null, res);
-                    })
-                })
-            }
+        } else if (request.result.metadata.intentName == "last_five_incidents" || request.result.metadata.intentName == "last_five_requests") {
+            makeFBResponse.showLastFive(request, senderId, function(err, res){
+                callback(null, res);
+            })
         } else if (request.result.metadata.intentName == "show_incident_view_options" || request.result.metadata.intentName == "show_requests_view_options") {
             makeFBResponse.getDfResponse(request, function(err, res){
                 callback(null, res);

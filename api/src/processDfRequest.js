@@ -105,7 +105,7 @@ module.exports = {
                             var dt = moment(new Date(result.opened_at)).format('MMMM Do YYYY, h:mm:ss A');
                             var sysId = result.sys_id;
                             arr.push({
-                                "title": `Incident: ${id}`,
+                                "title": `Requests Number: ${id}`,
                                 "subtitle": `Approval: ${approval} \nDate: ${dt}`,
                                 "buttons":[
                                     {  
@@ -116,6 +116,83 @@ module.exports = {
                                     }
                                 ]
                             });
+                            module.exports.sendAllResponse(request, arr, senderId, function(err, res){
+                                callback(null, res);
+                            })
+                        })
+                    }
+                } else {
+                    makeFBResponse.loginResponse(senderId, function(res) {
+                        callback(null, res);
+                    })
+                }
+            })
+        } else {
+            var response = `Please login first to continue.`;
+            sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                makeFBResponse.loginResponse(senderId, function(res) {
+                        callback(null, res);
+                })
+            })
+        }
+    },
+    "showLastFive": function (request, callback) {
+        if(session.length != 0) {
+            session.forEach(function(element){
+                if(element.senderId == senderId) {
+                    if (request.result.metadata.intentName == "last_five_incidents") {
+                        serviceNow.getRecords(element.token, function(err, body) {
+                            body = JSON.parse(body);
+                            var arr = [];
+                            var length = body.result.length;
+                            for (i = length - 1; i >= length - 5; i--) {
+                                var id = body.result[i].number;
+                                var desc = body.result[i].short_description;
+                                var sysId = body.result[i].sys_id;
+                                var dt = moment(new Date(body.result[i].opened_at)).format('MMMM Do YYYY, h:mm:ss A');
+                                var category = body.result[i].category;
+                                var active = body.result[i].active;
+                                category = category.charAt(0).toUpperCase() + category.slice(1);
+                                    arr.push({
+                                        "title": `Incident: ${id}`,
+                                        "subtitle": `Category: ${category} \nDate: ${dt} \nStatus: ${active ? "Not resolved": "Resolved"}`,
+                                        "buttons":[
+                                            {  
+                                                "type":"web_url",
+                                                "url":`https://dev27552.service-now.com/nav_to.do?uri=/incident.do?sys_id=${sysId}`,
+                                                "title":"View",
+                                                "webview_height_ratio":"tall"
+                                            }
+                                        ]
+                                    });
+                            }
+                            module.exports.sendAllResponse(request, arr, senderId, function(err, res){
+                                callback(null, res);
+                            })
+                        })
+                    } else {
+                        serviceNow.getUserRequests(element.token, function(err,body) {
+                            body = JSON.parse(body);
+                            var arr = [];
+                            var length = body.records.length;
+                            for (i = length - 1; i >= length - 5; i--) {
+                                var id = body.records[i].number;
+                                var sysId = body.result[i].sys_id;
+                                var dt = moment(new Date(body.records[i].opened_at)).format('MMMM Do YYYY, h:mm:ss A');
+                                var approval = body.records[i].approval;
+                                    arr.push({
+                                        "title": `Request Number: ${id}`,
+                                        "subtitle": `Approval: ${approval} \nDate: ${dt}`,
+                                        "buttons":[
+                                            {  
+                                                "type":"web_url",
+                                                "url":`https://dev27552.service-now.com/nav_to.do?uri=/incident.do?sys_id=${sysId}`,
+                                                "title":"View",
+                                                "webview_height_ratio":"tall"
+                                            }
+                                        ]
+                                    });
+                            }
                             module.exports.sendAllResponse(request, arr, senderId, function(err, res){
                                 callback(null, res);
                             })
