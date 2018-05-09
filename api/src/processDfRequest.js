@@ -116,7 +116,7 @@ module.exports = {
                                     }
                                 ]
                             });
-                            this.sendAllResponse(arr, senderId, function(err, res){
+                            module.exports.sendAllResponse(arr, senderId, function(err, res){
                                 callback(null, res);
                             })
                         })
