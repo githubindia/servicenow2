@@ -504,26 +504,7 @@ module.exports = {
                     }
                 })
             })
-            // var sysId = 'eb4e17730ff9130076fccfdce1050ea5';
-            // processDfRequest.logRequest(request, senderId, sysId, function(err, res) {
-            //     callback(null, res);
-            // })
-         } //else if (request.result.metadata.intentName == "software_uninstall") {
-        //     var sysId = 'b1de5b730ff9130076fccfdce1050e76';
-        //     processDfRequest.logRequest(request, senderId, sysId, function(err, res) {
-        //         callback(null, res);
-        //     })
-        // } else if (request.result.metadata.intentName == "desktop_allocation") {
-        //     var sysId = '195f93ff0fb9130076fccfdce1050e07';
-        //     processDfRequest.logRequest(request, senderId, sysId, function(err, res) {
-        //         callback(null, res);
-        //     })
-        // } else if (request.result.metadata.intentName == "usb_access") {
-        //     var sysId = '70df5b730ff9130076fccfdce1050e7b';
-        //     processDfRequest.logRequest(request, senderId, sysId, function(err, res) {
-        //         callback(null, res);
-        //     })
-        // }
+        }
     },
     // After getting token this method called.
     "getToken": function (request, response) {
