@@ -405,14 +405,10 @@ module.exports = {
                     })
                 })
             }
-        } else if (request.result.metadata.intentName == "show_incident_view_options") {
-            var response;
-            request.result.fulfillment.messages.forEach(function(element){
-                if (element.type == 4){
-                    response = element.payload.facebook;
-                }
-            });
-            callback(null, response);
+        } else if (request.result.metadata.intentName == "show_incident_view_options" || request.result.metadata.intentName == "show_requests_view_options") {
+            makeFBResponse.getDfResponse(request, function(err, res){
+                callback(null, res);
+            })
         } else if (request.result.metadata.intentName == "latest_incident") {
             if(session.length != 0) {
                 session.forEach(function(element){
@@ -520,7 +516,7 @@ module.exports = {
             "senderId":psid,
             "token":token
         })
-        //session = session.filter((v, i, a) => a.indexOf(v) === i);
+        // Storing unique senderId and token
         session = session.filter((session, index, self) =>
         index === self.findIndex((t) => (
             t.senderId === session.senderId && t.token === session.token
@@ -563,7 +559,7 @@ module.exports = {
                 element = element.charAt(0).toUpperCase() + element.slice(1);
                 name = name + " " + element;
             })
-            var result = `Hello!${name}. Here you can create or view all your requests.`
+            var result = `Hello!${name}. Here you can create or view all your requests.`;
             sendFBResponse.sendResponse(psid, result, function(err, body) {
                 makeFBResponse.genericResponse(function(res) {
                     sendFBResponse.sendTemplate(psid, res, function(callback){
