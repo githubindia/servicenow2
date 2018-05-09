@@ -406,15 +406,16 @@ module.exports = {
                                         module.exports.sendAllResponse(request, arr, senderId, function(err, res){
                                             callback(null, res);
                                         })
-                                    } else {
-                                        var response = "No matching records found for ID: ";
-                                        sendFBResponse.sendResponse(senderId, response, function(err, body) {
-                                            makeFBResponse.getDfResponse(request, function(err, res){
-                                                callback(null, res);
-                                            })
-                                        })
                                     }
                                 })
+                                if (arr.length == 0) {
+                                    var response = "No matching records found for ID: ";
+                                    sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                                        makeFBResponse.getDfResponse(request, function(err, res){
+                                            callback(null, res);
+                                        })
+                                    })        
+                                }
                             }
                         })
                     } else {
