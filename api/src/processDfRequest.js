@@ -384,9 +384,9 @@ module.exports = {
                                     })
                                 });
                             } else {
+                                var arr = [];
                                 body.records.forEach(function(ele) {
                                     if(ele.number == reqNumber) {
-                                        var arr = [];
                                         var id = ele.number;
                                         var approval = ele.approval;
                                         var dt = moment(new Date(ele.opened_at)).format('MMMM Do YYYY, h:mm:ss A');
