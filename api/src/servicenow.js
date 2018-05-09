@@ -132,6 +132,24 @@ module.exports = {
         if (error) throw new Error(error);
         callback(null, body)
       });
+    },
+    "getUserRequests": function(token, callback) {
+      var options = { 
+        method: 'GET',
+        url: 'https://dev27552.service-now.com/sc_request_list.do',
+        qs: {
+          JSONv2: '',
+          sysparm_userpref_module: '17e0b4990a04bf15013f9590408c419a'
+        },
+        headers: {
+          'cache-control': 'no-cache',
+          authorization: `Bearer ${token}` 
+        } 
+      };
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        callback(null, body)
+      });
     }
 
 }
