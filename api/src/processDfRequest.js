@@ -2,6 +2,8 @@ var serviceNow = require('./servicenow');
 var sendFBResponse = require('./sendFBMessage');
 var makeFBResponse = require('./makeResponse');
 var moment = require('moment');
+var regExp = RegExp(/((inc|Inc|iNc|InC|inC|iNC|INc)(\d{7}|\d{6}))|((req|Req|rEq|ReQ|reQ|rEQ|REq)(\d{7}|\d{6}))/);
+var regExp2 = RegExp(/\d{6}|\d{7}|\d+/);
 
 module.exports = {
     "logRequest": function (request, senderId, sysId, callback) {
@@ -211,6 +213,156 @@ module.exports = {
                         callback(null, res);
                 })
             })
+        }
+    },
+    "getIncidentById": function (request, senderId, callback) {
+        var incidentNumber = request.result.parameters.incidentNumber;
+        if(incidentNumber != "" && (regExp.test(incidentNumber) || regExp2.test(incidentNumber))) {
+            var incNumber = request.result.parameters.incidentNumber;
+            if (isNaN(incNumber)) {
+                incNumber = "INC" + incNumber.slice(2);
+            } else {
+                incNumber = "INC" + incNumber; 
+            }        
+            if(session.length != 0) {
+                session.forEach(function(element){
+                    if(element.senderId == senderId) {
+                        serviceNow.statusIncident(element.token, incNumber, function(err, body) {
+                            body = JSON.parse(body);
+                            if (body.error != undefined) {
+                                var response = `Record doesn't exist or you are not authorized to view status for incident number ${incNumber}.`;
+                                sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                                    var response;
+                                    request.result.fulfillment.messages.forEach(function(element) {
+                                        if (element.type == 4){
+                                            response = element.payload.facebook;
+                                        }
+                                    });
+                                    callback(null, response);
+                                });
+                            } else {
+                                var arr = [];
+                                var result = body.result[0];
+                                var id = result.number;
+                                var desc = result.short_description;
+                                var sysId = result.sys_id;
+                                var dt = moment(new Date(result.opened_at)).format('MMMM Do YYYY, h:mm:ss A');
+                                var active = result.active;
+                                var category = result.category;
+                                category = category.charAt(0).toUpperCase() + category.slice(1);
+                                arr.push({
+                                    "title": `Incident: ${id}`,
+                                    "subtitle": `Category: ${category} \nDate: ${dt} \nStatus: ${active ? "Not resolved": "Resolved"}`,
+                                    "buttons":[
+                                        {  
+                                            "type":"web_url",
+                                            "url":`https://dev27552.service-now.com/nav_to.do?uri=/incident.do?sys_id=${sysId}`,
+                                            "title":"View",
+                                            "webview_height_ratio":"tall"
+                                        }
+                                    ]
+                                });
+                                makeFBResponse.getCorousalResponse(arr, function (res) {
+                                    sendFBResponse.sendTemplate(senderId, res, function(body) {
+                                        var response;
+                                        request.result.fulfillment.messages.forEach(function(element){
+                                            if (element.type == 4){
+                                                response = element.payload.facebook;
+                                            }
+                                        });
+                                        callback(null, response);
+                                    })
+                                })
+                            }
+                        })
+                    } else {
+                        makeFBResponse.loginResponse(senderId, function(res) {
+                            callback(null, res);
+                        })
+                    }
+                })
+            } else {
+                var response = `Please login first to continue.`;
+                sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                    makeFBResponse.loginResponse(senderId, function(res) {
+                            callback(null, res);
+                    })
+                })
+            }
+        } else {
+            response = `Please enter the incident number to view status.`;
+            sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                console.log(body);
+            });
+        }
+    },
+    "getRequestById": function (request, senderId, callback) {
+        var requestNumber = request.result.parameters.incidentNumber;
+        if( requestNumber != "" && (regExp.test(requestNumber) || regExp2.test(requestNumber))) {
+            var reqNumber = request.result.parameters.requestNumber;
+            if (isNaN(incNumber)) {
+                reqNumber = "REQ" + incNumber.slice(2);
+            } else {
+                reqNumber = "REQ" + incNumber; 
+            }
+            if(session.length != 0) {
+                session.forEach(function(element){
+                    if(element.senderId == senderId) {
+                        serviceNow.getUserRequests(element.token, incNumber, function(err, body) {
+                            body = JSON.parse(body);
+                            if (body.records.length == 0) {
+                                var response = `Record doesn't exist or you are not authorized to view status for incident number ${incNumber}.`;
+                                sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                                    makeFBResponse.getDfResponse(request, function(err, res){
+                                        callback(null, res);
+                                    })
+                                });
+                            } else {
+                                body.records.forEach(function(ele) {
+                                    if(ele.number == reqNumber) {
+                                        var arr = [];
+                                        var id = ele.number;
+                                        var approval = ele.approval;
+                                        var dt = moment(new Date(ele.opened_at)).format('MMMM Do YYYY, h:mm:ss A');
+                                        var sysId = ele.sys_id;
+                                        arr.push({
+                                            "title": `Requests Number: ${id}`,
+                                            "subtitle": `Approval: ${approval} \nDate: ${dt}`,
+                                            "buttons":[
+                                                {  
+                                                    "type":"web_url",
+                                                    "url":`https://dev27552.service-now.com/nav_to.do?uri=/sc_request.do?sys_id=${sysId}`,
+                                                    "title":"View",
+                                                    "webview_height_ratio":"tall"
+                                                }
+                                            ]
+                                        });
+                                        module.exports.sendAllResponse(request, arr, senderId, function(err, res){
+                                            callback(null, res);
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    } else {
+                        makeFBResponse.loginResponse(senderId, function(res) {
+                            callback(null, res);
+                        })
+                    }
+                })
+            } else {
+                var response = `Please login first to continue.`;
+                sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                    makeFBResponse.loginResponse(senderId, function(res) {
+                            callback(null, res);
+                    })
+                })
+            }
+        } else {
+            response = `Please enter the incident number to view status.`;
+            sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                console.log(body);
+            });
         }
     },
     "sendAllResponse": function(request, arr, senderId, callback) {
