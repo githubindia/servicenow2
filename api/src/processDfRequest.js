@@ -1,6 +1,7 @@
 var serviceNow = require('./servicenow');
 var sendFBResponse = require('./sendFBMessage');
 var makeFBResponse = require('./makeResponse');
+var moment = require('moment');
 
 module.exports = {
     "logRequest": function (request, senderId, sysId, callback) {
