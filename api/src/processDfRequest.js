@@ -285,7 +285,7 @@ module.exports = {
         if(incidentNumber != "" && (regExp.test(incidentNumber) || regExp2.test(incidentNumber))) {
             var incNumber = request.result.parameters.incidentNumber;
             if (isNaN(incNumber)) {
-                incNumber = "INC" + incNumber.slice(2);
+                incNumber = "INC" + incNumber.slice(3);
             } else {
                 incNumber = "INC" + incNumber; 
             }        
@@ -366,7 +366,7 @@ module.exports = {
         if( requestNumber != "" && (regExp.test(requestNumber) || regExp2.test(requestNumber))) {
             var reqNumber = request.result.parameters.requestNumber;
             if (isNaN(reqNumber)) {
-                reqNumber = "REQ" + reqNumber.slice(2);
+                reqNumber = "REQ" + reqNumber.slice(3);
             } else {
                 reqNumber = "REQ" + reqNumber; 
             }
