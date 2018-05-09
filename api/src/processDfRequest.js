@@ -90,7 +90,7 @@ module.exports = {
                                     }
                                 ]
                             });
-                            this.sendAllResponse(arr, senderId, function(err, res){
+                            this.sendAllResponse(request, arr, senderId, function(err, res){
                                 callback(null, res);
                             })
 
@@ -116,7 +116,7 @@ module.exports = {
                                     }
                                 ]
                             });
-                            module.exports.sendAllResponse(arr, senderId, function(err, res){
+                            module.exports.sendAllResponse(request, arr, senderId, function(err, res){
                                 callback(null, res);
                             })
                         })
@@ -136,16 +136,12 @@ module.exports = {
             })
         }
     },
-    "sendAllResponse": function(arr, senderId, callback) {
+    "sendAllResponse": function(request, arr, senderId, callback) {
         makeFBResponse.getCorousalResponse(arr, function (res) {
             sendFBResponse.sendTemplate(senderId, res, function(body) {
-            var response;
-            request.result.fulfillment.messages.forEach(function(element){
-                if (element.type == 4){
-                    response = element.payload.facebook;
-                }
-            });
-            callback(null, response);
+                makeFBResponse.getDfResponse(request, function(err, res){
+                    callback(null, res);
+                })
             })
         })
     }
