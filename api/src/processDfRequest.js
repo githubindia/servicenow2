@@ -308,7 +308,7 @@ module.exports = {
             if(session.length != 0) {
                 session.forEach(function(element){
                     if(element.senderId == senderId) {
-                        serviceNow.getUserRequests(element.token, incNumber, function(err, body) {
+                        serviceNow.getUserRequests(element.token, function(err, body) {
                             body = JSON.parse(body);
                             if (body.records.length == 0) {
                                 var response = `Record doesn't exist or you are not authorized to view status for incident number ${incNumber}.`;
