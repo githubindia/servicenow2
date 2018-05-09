@@ -2,7 +2,7 @@ var serviceNow = require('./servicenow');
 var sendFBResponse = require('./sendFBMessage');
 var makeFBResponse = require('./makeResponse');
 var moment = require('moment');
-var regExp = RegExp(/((inc|Inc|iNc|InC|inC|iNC|INc|INC)(\d{7}|\d{6}))|((req|Req|rEq|ReQ|reQ|rEQ|REq|REQ)(\d{7}|\d{6}))/);
+var regExp = RegExp(/(inc|Inc|iNc|InC|inC|iNC|INc)(\d{7}|\d{6})|(req|Req|rEq|ReQ|reQ|rEQ|REq|REQ)(\d{7}|\d{6})/);
 var regExp2 = RegExp(/\d{6}|\d{7}|\d+/);
 
 module.exports = {
@@ -370,6 +370,7 @@ module.exports = {
             } else {
                 reqNumber = "REQ" + reqNumber; 
             }
+            console.log(reqNumber + "~~~~~~~~~~~~~~~~~~~~");
             if(session.length != 0) {
                 session.forEach(function(element){
                     if(element.senderId == senderId) {
@@ -405,6 +406,8 @@ module.exports = {
                                         module.exports.sendAllResponse(request, arr, senderId, function(err, res){
                                             callback(null, res);
                                         })
+                                    } else {
+                                        console.log("No match found~~~~~~~~~~~~~~~~~~~");
                                     }
                                 })
                             }
