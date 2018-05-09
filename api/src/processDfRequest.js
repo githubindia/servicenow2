@@ -148,7 +148,7 @@ module.exports = {
                             var arr = [];
                             var length = body.result.length;
                             if(length <= 5) {
-                                body.records.forEach(function(element){
+                                body.result.forEach(function(element){
                                     var id = element.number;
                                     var desc = element.short_description;
                                     var sysId = element.sys_id;
