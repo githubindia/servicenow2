@@ -407,7 +407,12 @@ module.exports = {
                                             callback(null, res);
                                         })
                                     } else {
-                                        console.log("No match found~~~~~~~~~~~~~~~~~~~");
+                                        var response = "No matching records found for ID: ";
+                                        sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                                            makeFBResponse.getDfResponse(request, function(err, res){
+                                                callback(null, res);
+                                            })
+                                        })
                                     }
                                 })
                             }
@@ -427,7 +432,7 @@ module.exports = {
                 })
             }
         } else {
-            response = `Please enter the incident number to view status.`;
+            response = `Please enter the request number to view status.`;
             sendFBResponse.sendResponse(senderId, response, function(err, body) {
                 console.log(body);
             });
