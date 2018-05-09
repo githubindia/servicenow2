@@ -409,7 +409,7 @@ module.exports = {
                                     }
                                 })
                                 if (arr.length == 0) {
-                                    var response = "No matching records found for ID: ";
+                                    var response = `No matching records found for ID: ${requestNumber}`;
                                     sendFBResponse.sendResponse(senderId, response, function(err, body) {
                                         makeFBResponse.getDfResponse(request, function(err, res){
                                             callback(null, res);
