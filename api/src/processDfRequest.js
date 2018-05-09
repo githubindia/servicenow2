@@ -136,7 +136,7 @@ module.exports = {
             })
         }
     },
-    "showLastFive": function (request, callback) {
+    "showLastFive": function (request, senderId, callback) {
         if(session.length != 0) {
             session.forEach(function(element){
                 if(element.senderId == senderId) {
