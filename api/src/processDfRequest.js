@@ -147,7 +147,14 @@ module.exports = {
                             body = JSON.parse(body);
                             var arr = [];
                             var length = body.result.length;
-                            if(length <= 5) {
+                            if (length == 0) {
+                                 var response = `No Records Exists.`;
+                                sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                                    makeFBResponse.getDfResponse(request, function(err, res){
+                                        callback(null, res);
+                                    })
+                                })
+                            } else if(length <= 5) {
                                 body.result.forEach(function(element){
                                     var id = element.number;
                                     var desc = element.short_description;
@@ -204,7 +211,14 @@ module.exports = {
                             body = JSON.parse(body);
                             var arr = [];
                             var length = body.records.length;
-                            if (length <= 5) {
+                            if (length == 0) {
+                                 var response = `No Records Exists.`;
+                                sendFBResponse.sendResponse(senderId, response, function(err, body) {
+                                    makeFBResponse.getDfResponse(request, function(err, res){
+                                        callback(null, res);
+                                    })
+                                })
+                            } else if (length <= 5) {
                                 body.records.forEach(function(element){
                                     var id = element.number;
                                     var sysId = element.sys_id;
