@@ -63,9 +63,9 @@ function getData() {
     console.log("running");
     serviceNow.getAllUserRecords(function(err, response) {
         console.log(response);
-        // response = JSON.parse(response);
+        response = JSON.parse(response);
         if (userData.length != 0) {
-            response.forEach(function(element) {
+            response.records.forEach(function(element) {
                 userData.forEach(function(ele) {
                     if(element.sys_id == ele.sys_id) {
                         makeFBResponse.makeApprovalResponse(element.approval, element.sys_id, element.number, function(err, res) {
