@@ -82,7 +82,7 @@ function getData() {
             setTimeout(getData, 60000);
         }
     });
-    setTimeout(getData, 1000);
+    //setTimeout(getData, 1000);
 }
 
 app.listen(port);
