@@ -62,7 +62,7 @@ getData();
 function getData() {
     console.log("running");
     serviceNow.getAllUserRecords(function(err, response) {
-        response = JSON.parse(response);
+        // response = JSON.parse(response);
         if (userData.length != 0) {
             response.forEach(function(element) {
                 userData.forEach(function(ele) {
