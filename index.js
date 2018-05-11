@@ -54,6 +54,10 @@ app.use(bodyParser.urlencoded({extended: true}));
  */
 app.use('/webhook', route);
 
+setTimeout(function(){
+    console.log("function is running")
+}, 1000);
+
 app.listen(port);
 console.log("Server Running Successfully at port " + port);
 
