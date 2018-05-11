@@ -11,7 +11,10 @@ var taskDispatcher = require('./dispatcher/taskDispatcher');
 var getAuthorization = require('./dispatcher/getAuth');
 var snTask = require('./serviceNowAPI/task');
 var session = require('client-sessions');
+var sendFBResponse = require('./api/src/sendFBMessage');
+var makeFBResponse = require('./api/src/makeResponse');
 global.session = [];
+global.userData = [];
 
 var port = process.env.PORT || 3000;
 
@@ -54,9 +57,31 @@ app.use(bodyParser.urlencoded({extended: true}));
  */
 app.use('/webhook', route);
 
-setTimeout(getData, 1000);
+getData();
 function getData() {
     console.log("running");
+    getAllUserRecords(function(err, response) {
+        response = JSON.parse(response);
+        if (userData.length != 0) {
+            response.forEach(function(element) {
+                userData.forEach(function(ele) {
+                    if(element.sys_id == ele.sys_id) {
+                        makeFBResponse.makeApprovalResponse(element.approval, element.sys_id, element.number, function(err, res) {
+                            sendFBResponse.sendTemplate(ele.senderId, res, function(body) {
+                                console.log("~~~~~~~message sent~~~~~~~~~");
+                                userData = userData.filter(function( obj ) {
+                                    return obj.senderId !== ele.senderId;
+                                });
+                            })
+                        })
+                        break;
+                    }
+                })
+            })
+        } else {
+            setTimeout(getData, 60000);
+        }
+    });
     setTimeout(getData, 1000);
 }
 

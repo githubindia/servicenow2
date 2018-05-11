@@ -216,6 +216,10 @@ module.exports = {
                         var sysId = element.sys_id;
                         processDfRequest.logRequest(request, senderId, sysId, function(err, res) {
                             callback(null, res);
+                            global.userData.push({
+                                "senderId":senderId,
+                                "sysId":sysId
+                            })
                         })
                     }
                 })

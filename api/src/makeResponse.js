@@ -127,5 +127,23 @@ module.exports = {
                 callback(null, res);
             }
         })
+    },
+    "makeApprovalResponse": function(approval, sysId, id, callback) {
+        var arr = [];
+        arr.push({
+            "title": `Requests Number: ${id}`,
+            "subtitle": `Approval: ${approval}`,
+            "buttons":[
+                {  
+                    "type":"web_url",
+                    "url":`https://dev27552.service-now.com/nav_to.do?uri=/sc_request.do?sys_id=${sysId}`,
+                    "title":"View",
+                    "webview_height_ratio":"tall"
+                }
+            ]
+        });
+        makeFBResponse.getCorousalResponse(arr, function (res) {
+            callback(null, res);
+        })
     }
 }

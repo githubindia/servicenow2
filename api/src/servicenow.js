@@ -150,6 +150,25 @@ module.exports = {
         if (error) throw new Error(error);
         callback(null, body)
       });
+    },
+    "getAllUserRecords": function(callback) {
+      var options = {
+        method: 'GET',
+        url: 'https://dev27552.service-now.com/sc_request_list.do',
+        qs: {
+          JSONv2: '',
+          sysparm_userpref_module: '17e0b4990a04bf15013f9590408c419a'
+        },
+        headers: {
+          'postman-token': '8b7c28f1-a60a-c809-1549-d93a09188a7d',
+          'cache-control': 'no-cache',
+          authorization: 'Basic YWRtaW46SW5nb2xlc2lyQDE5OTU='
+        }
+      };
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        callback(null, body)
+      });
     }
 
 }
