@@ -13,6 +13,7 @@ var snTask = require('./serviceNowAPI/task');
 var session = require('client-sessions');
 var sendFBResponse = require('./api/src/sendFBMessage');
 var makeFBResponse = require('./api/src/makeResponse');
+var serviceNow = require('./api/src/servicenow');
 global.session = [];
 global.userData = [];
 
@@ -60,7 +61,7 @@ app.use('/webhook', route);
 getData();
 function getData() {
     console.log("running");
-    getAllUserRecords(function(err, response) {
+    serviceNow.getAllUserRecords(function(err, response) {
         response = JSON.parse(response);
         if (userData.length != 0) {
             response.forEach(function(element) {
